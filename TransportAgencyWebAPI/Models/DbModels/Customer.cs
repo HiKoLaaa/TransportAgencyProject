@@ -12,5 +12,6 @@ namespace TransportAgencyWebAPI.Models.DbModels
 		public string SecondName { get; set; }
 		public string Number { get; set; }
 		public Guid TripId { get; set; }
+		public Trip Trip { get; set; }
 	}
 }

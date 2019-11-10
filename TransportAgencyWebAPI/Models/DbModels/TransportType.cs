@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TransportAgencyWebAPI.Models.DbModels
 {
@@ -16,5 +17,7 @@ namespace TransportAgencyWebAPI.Models.DbModels
 		/// Наименование вида транспорта.
 		/// </summary>
 		public string Name { get; set; }
+
+		public List<Trip> Trips { get; set; }
 	}
 }
