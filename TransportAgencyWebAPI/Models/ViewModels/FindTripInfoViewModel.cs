@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using TransportAgencyWebAPI.Models;
 
-namespace TransportAgencyWebAPI.ViewModels
+namespace TransportAgencyWebAPI.Models.ViewModels
 {
-	public class FindInfo
+	public class FindTripInfoViewModel
 	{
 		public Guid ArrivalId { get; set; }
 		public DateTime? ArrivalDate { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TransportAgencyWebAPI.Models
+namespace TransportAgencyWebAPI.Models.DbModels
 {
 	public class Place
 	{

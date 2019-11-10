@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TransportAgencyWebAPI.Models
+namespace TransportAgencyWebAPI.Models.DbModels
 {
 	public class Country
 	{
