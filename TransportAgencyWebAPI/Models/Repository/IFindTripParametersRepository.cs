@@ -8,6 +8,6 @@ namespace TransportAgencyWebAPI.Models.Repository
 {
 	public interface IFindTripWithParametersRepository<T> : IRepository<T>
 	{
-		IEnumerable<T> GetItems(FindTripInfoViewModel info);
+		IEnumerable<T> GetAll(FindTripInfoViewModel info);
 	}
 }

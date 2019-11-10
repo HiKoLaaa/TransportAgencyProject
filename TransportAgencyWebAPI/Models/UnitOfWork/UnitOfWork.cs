@@ -9,10 +9,32 @@ namespace TransportAgencyWebAPI.Models.UnitOfWork
 		private TransportAgencyContext _context;
 
 		private IRepository<Customer> _customerRepository;
-		public IRepository<Customer> CustomerRepository => _customerRepository ?? new CustomerRepository(_context);
+		public IRepository<Customer> CustomerRepository
+		{
+			get
+			{
+				if (_customerRepository == null)
+				{
+					_customerRepository = new CustomerRepository(_context);
+				}
+
+				return _customerRepository;
+			}
+		}
 
 		private IFindTripWithParametersRepository<Trip> _tripRepository;
-		public IFindTripWithParametersRepository<Trip> TripRepository => _tripRepository ?? new TripRepository(_context);
+		public IFindTripWithParametersRepository<Trip> TripRepository
+		{
+			get
+			{
+				if (_tripRepository == null)
+				{
+					_tripRepository = new TripRepository(_context);
+				}
+
+				return _tripRepository;
+			}
+		}
 
 		public UnitOfWork(TransportAgencyContext context)
 		{

@@ -16,13 +16,15 @@ namespace TransportAgencyWebAPI.Models.Repository
 			_context = context;
 		}
 
+		public void AddItem(Trip item) => _context.Trips.Add(item);
+
 		public void DeleteItem(Guid id) => _context.Trips.Remove(_context.Trips.Find(id));
 
 		public void EditItem(Trip item) => _context.Trips.Update(item);
 
 		public IEnumerable<Trip> GetAll() => _context.Trips;
 
-		public IEnumerable<Trip> GetItems(FindTripInfoViewModel info)
+		public IEnumerable<Trip> GetAll(FindTripInfoViewModel info)
 		{
 			Func<Trip, bool> tripInfo = (t =>
 			{

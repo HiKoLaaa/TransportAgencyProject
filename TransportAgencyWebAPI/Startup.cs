@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TransportAgencyWebAPI.Models.DbContext;
 using Microsoft.Extensions.Configuration;
+using TransportAgencyWebAPI.Models.UnitOfWork;
 
 namespace TransportAgencyWebAPI
 {
@@ -24,6 +25,7 @@ namespace TransportAgencyWebAPI
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddSingleton<IUnitOfWork, UnitOfWork>();
 			services.AddDbContext<TransportAgencyContext>(opt => 
 				opt.UseSqlServer(_configuration["Database:ConnectionString"]), 
 				ServiceLifetime.Singleton);

@@ -14,6 +14,8 @@ namespace TransportAgencyWebAPI.Models.Repository
 			_context = context;
 		}
 
+		public void AddItem(Customer item) => _context.Customers.Add(item);
+
 		public void DeleteItem(Guid id) => _context.Customers.Remove(_context.Customers.Find(id));
 
 		public void EditItem(Customer item) => _context.Customers.Update(item);

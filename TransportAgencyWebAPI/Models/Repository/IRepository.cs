@@ -9,6 +9,7 @@ namespace TransportAgencyWebAPI.Models.Repository
 	{
 		IEnumerable<T> GetAll();
 		T GetOne(Guid id);
+		void AddItem(T item);
 		void EditItem(T item);
 		void DeleteItem(Guid id);
 	}
