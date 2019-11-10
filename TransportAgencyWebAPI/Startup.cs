@@ -25,7 +25,8 @@ namespace TransportAgencyWebAPI
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<TransportAgencyContext>(opt => 
-				opt.UseSqlServer(_configuration["Database:ConnectionString"]));
+				opt.UseSqlServer(_configuration["Database:ConnectionString"]), 
+				ServiceLifetime.Singleton);
 
 			services.AddMvc(opt => opt.EnableEndpointRouting = false);
 		}

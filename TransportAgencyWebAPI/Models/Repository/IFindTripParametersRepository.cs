@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TransportAgencyWebAPI.ViewModels;
+using TransportAgencyWebAPI.Models.ViewModels;
 
 namespace TransportAgencyWebAPI.Models.Repository
 {
