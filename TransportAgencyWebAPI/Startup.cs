@@ -36,6 +36,7 @@ namespace TransportAgencyWebAPI
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			app.UseStatusCodePages();
+			app.UseCors(builder => builder.AllowAnyOrigin());
 			app.UseMvc();
 		}
 	}

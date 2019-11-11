@@ -6,6 +6,7 @@ using TransportAgencyWebAPI.Models.UnitOfWork;
 
 namespace TransportAgencyWebAPI.Controllers
 {
+	[Route("api/[controller]")]
 	public class TransportTypeController : Controller
 	{
 		private IUnitOfWork _unitOfWork;
