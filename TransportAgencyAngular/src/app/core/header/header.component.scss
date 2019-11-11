@@ -1,0 +1,16 @@
+$header-size: 100px;
+
+.header-img {
+  background-image: url("../../../assets/background_image.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: $header-size;
+}
+
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #0000c9;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2d2d2d;
+}

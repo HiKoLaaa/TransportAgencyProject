@@ -1,0 +1,13 @@
+$footer-size: 100px;
+
+.footer-img {
+  background-image: url("../../../assets/background_image.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: $footer-size;
+}
+
+.info {
+  padding: 13px 0 10px 0;
+  font-size: 110%;
+}
