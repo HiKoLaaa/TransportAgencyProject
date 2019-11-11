@@ -36,6 +36,34 @@ namespace TransportAgencyWebAPI.Models.UnitOfWork
 			}
 		}
 
+		private IRepository<Place> _placeRepository;
+		public IRepository<Place> PlaceRepository
+		{
+			get
+			{
+				if (_placeRepository == null)
+				{
+					_placeRepository = new PlaceRepository(_context);
+				}
+
+				return _placeRepository;
+			}
+		}
+
+		private IRepository<TransportType> _transportTypeRepository;
+		public IRepository<TransportType> TransportTypeRepository
+		{
+			get
+			{
+				if (_transportTypeRepository == null)
+				{
+					_transportTypeRepository = new TransportTypeRepository(_context);
+				}
+
+				return _transportTypeRepository;
+			}
+		}
+
 		public UnitOfWork(TransportAgencyContext context)
 		{
 			_context = context;

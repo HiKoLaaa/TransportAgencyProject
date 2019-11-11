@@ -21,8 +21,18 @@ namespace TransportAgencyWebAPI.Models.Repository
 
 		public void DeleteItem(Guid id) => _context.Trips.Remove(_context.Trips.Find(id));
 
-		public void EditItem(Trip item) => _context.Trips.Update(item);
-
+		public void EditItem(Trip item)
+		{
+			Trip editTrip = _context.Trips.Find(item.Id);
+			editTrip.TransportTypeId = item.TransportType.Id;
+			editTrip.ArrivalPlaceId = item.ArrivalPlace.Id;
+			editTrip.DeparturePlaceId = item.DeparturePlace.Id;
+			editTrip.ArrivalTime = item.ArrivalTime;
+			editTrip.DepartureTime = item.DepartureTime;
+			editTrip.Price = item.Price;
+			_context.Trips.Update(editTrip);
+		}
+		
 		public IEnumerable<Trip> GetAll() => _context.Trips
 			.Include(t => t.TransportType)
 			.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
