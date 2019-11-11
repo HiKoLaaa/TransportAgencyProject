@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TransportAgencyWebAPI.Models.DbModels
@@ -9,14 +10,18 @@ namespace TransportAgencyWebAPI.Models.DbModels
 	{
 		public Guid Id { get; set; }
 
-		public Guid TransportId { get; set; }
+		[JsonIgnore]
+		public Guid TransportTypeId { get; set; }
+
 		public TransportType TransportType { get; set; }
 
+		[JsonIgnore]
 		public Guid DeparturePlaceId { get; set; }
 		public Place DeparturePlace { get; set; }
 
 		public DateTime DepartureTime { get; set; }
 
+		[JsonIgnore]
 		public Guid ArrivalPlaceId { get; set; }
 		public Place ArrivalPlace { get; set; }
 
@@ -24,6 +29,7 @@ namespace TransportAgencyWebAPI.Models.DbModels
 
 		public decimal Price { get; set; }
 
+		[JsonIgnore]
 		public List<Customer> Customers { get; set; }
 	}
 }

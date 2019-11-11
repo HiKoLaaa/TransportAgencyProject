@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TransportAgencyWebAPI.Models.DbModels
 {
@@ -18,6 +19,7 @@ namespace TransportAgencyWebAPI.Models.DbModels
 		/// </summary>
 		public string Name { get; set; }
 
+		[JsonIgnore]
 		public List<Trip> Trips { get; set; }
 	}
 }
