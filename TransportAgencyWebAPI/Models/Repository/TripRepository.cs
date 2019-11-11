@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TransportAgencyWebAPI.Models.DbContext;
@@ -22,7 +23,10 @@ namespace TransportAgencyWebAPI.Models.Repository
 
 		public void EditItem(Trip item) => _context.Trips.Update(item);
 
-		public IEnumerable<Trip> GetAll() => _context.Trips;
+		public IEnumerable<Trip> GetAll() => _context.Trips
+			.Include(t => t.TransportType)
+			.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
+			.Include(t => t.DeparturePlace).ThenInclude(p => p.Country);
 
 		public IEnumerable<Trip> GetAll(FindTripInfoViewModel info)
 		{
@@ -38,15 +42,24 @@ namespace TransportAgencyWebAPI.Models.Repository
 
 				if (info.TranportTypeId.HasValue)
 				{
-					match = match && info.TranportTypeId.Value == t.TransportId; 
+					match = match && info.TranportTypeId.Value == t.TransportTypeId; 
 				}
 
 				return match;
 			});
 
-			return _context.Trips.Where(tripInfo);
+			return _context.Trips
+				.Include(t => t.TransportType)
+				.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
+				.Include(t => t.DeparturePlace).ThenInclude(p => p.Country)
+				.Where(tripInfo);
 		}
 
-		public Trip GetOne(Guid id) => _context.Trips.Find(id);
+		public Trip GetOne(Guid id) => _context.Trips
+			.Include(t => t.TransportType)
+			.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
+			.Include(t => t.DeparturePlace).ThenInclude(p => p.Country)
+			.Where(t => t.Id == id)
+			.FirstOrDefault();
 	}
 }

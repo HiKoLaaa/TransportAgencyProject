@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using TransportAgencyWebAPI.Models.DbContext;
 using TransportAgencyWebAPI.Models.DbModels;
 
@@ -20,8 +22,11 @@ namespace TransportAgencyWebAPI.Models.Repository
 
 		public void EditItem(Customer item) => _context.Customers.Update(item);
 
-		public IEnumerable<Customer> GetAll() => _context.Customers;
+		public IEnumerable<Customer> GetAll() => _context.Customers.Include(c => c.Trip);
 
-		public Customer GetOne(Guid id) => _context.Customers.Find(id);
+		public Customer GetOne(Guid id) => _context.Customers
+			.Include(c => c.Trip)
+			.Where(c => c.Id == id)
+			.FirstOrDefault();
 	}
 }
