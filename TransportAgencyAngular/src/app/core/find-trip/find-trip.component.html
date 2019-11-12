@@ -1,25 +1,48 @@
 <div class="row mt-15">
   <div class="col-12">
-    <form [formGroup]="form" novalidate>
+    <form [formGroup]="form" novalidate (ngSubmit)="submitForm()">
+      <div *ngIf="submitted && form.invalid" class="row">
+        <div class="col-12 text-white bg-danger p-2 error-text">
+          <ul class="list-unstyled">
+            <li *ngFor="let error of form.getFormErrors()">
+              {{error}}
+            </li>
+          </ul>
+        </div>
+      </div>
       <div class="row justify-content-md-between justify-content-center">
         <div class="row col-md-6 col-12 text-center">
-          <div class="col-md-6 col-12 form-group">
-            <label class="font-size-70">Место прибытия</label>
-            <input type="text" class="form-control form-control-md" formControlName="arrivalPlace">
-          </div>
-          <div class="col-md-6 col-12 form-group">
-            <label class="font-size-70">Дата прибытия</label>
-            <input type="date" class="form-control form-control-sm" formControlName="arrivalDate">
+          <div *ngFor="let ctrl of form.tripDepartureControls" class="col-md-6 col-12 form-group">
+            <label class="font-size-70">{{ctrl.label}}</label>
+            <input *ngIf="ctrl.name==='departurePlace'" type="text" class="form-control form-control-md"
+                   [formControlName]="ctrl.name">
+
+            <input *ngIf="ctrl.name==='departureDate'" type="date" class="form-control form-control-md"
+                   [formControlName]="ctrl.name">
+
+            <ul class="text-danger list-unstyled font-size-70"
+                *ngIf="(submitted || form.controls[ctrl.name].dirty) && form.controls[ctrl.name].invalid">
+              <li *ngFor="let error of form.controls[ctrl.name].getErrors()">
+                {{error}}
+              </li>
+            </ul>
           </div>
         </div>
         <div class="row col-md-6 col-12 text-center">
-          <div class="col-md-6 col-12 form-group">
-            <label class="font-size-70">Место отправления</label>
-            <input type="text" class="form-control form-control-md" formControlName="departurePlace">
-          </div>
-          <div class="col-md-6 col-12 form-group">
-            <label class="font-size-70">Дата отправления</label>
-            <input type="date" class="form-control form-control-sm" formControlName="departureDate">
+          <div *ngFor="let ctrl of form.tripArrivalControls" class="col-md-6 col-12 form-group">
+            <label class="font-size-70">{{ctrl.label}}</label>
+            <input *ngIf="ctrl.name==='arrivalPlace'" type="text" class="form-control form-control-md"
+                   [formControlName]="ctrl.name">
+
+            <input *ngIf="ctrl.name==='arrivalDate'" type="date" class="form-control form-control-md"
+                   [formControlName]="ctrl.name">
+
+            <ul class="text-danger list-unstyled font-size-70"
+                *ngIf="(submitted || form.controls[ctrl.name].dirty) && form.controls[ctrl.name].invalid">
+              <li *ngFor="let error of form.controls[ctrl.name].getErrors()">
+                {{error}}
+              </li>
+            </ul>
           </div>
         </div>
       </div>

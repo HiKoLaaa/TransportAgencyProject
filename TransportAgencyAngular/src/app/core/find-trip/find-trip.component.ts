@@ -12,6 +12,7 @@ import {Observer} from 'rxjs';
 })
 export class FindTripComponent {
   form: FindFormFormGroup;
+  submitted: boolean;
 
   // TODO: delete it.
   tt: TransportType[];
@@ -33,7 +34,7 @@ export class FindTripComponent {
     this.tt = [tt1, tt2];
   }
 
-  print() {
-    console.log(this.tname);
+  submitForm() {
+    this.submitted = true;
   }
 }
