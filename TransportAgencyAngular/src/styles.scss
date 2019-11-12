@@ -9,3 +9,13 @@ html, body {
 .content {
   min-height: 100%;
 }
+
+input.ng-dirty, select.ng-dirty {
+  &.ng-valid {
+    border: 2px solid green;
+  }
+
+  &.ng-invalid {
+    border: 2px solid red;
+  }
+}
