@@ -25,18 +25,23 @@ namespace TransportAgencyWebAPI
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddSingleton<IUnitOfWork, UnitOfWork>();
-			services.AddDbContext<TransportAgencyContext>(opt => 
-				opt.UseSqlServer(_configuration["Database:ConnectionString"]), 
-				ServiceLifetime.Singleton);
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
+			services.AddDbContext<TransportAgencyContext>(opt =>
+				opt.UseSqlServer(_configuration["Database:ConnectionString"]),
+				ServiceLifetime.Scoped);
 
+			services.AddCors();
 			services.AddMvc(opt => opt.EnableEndpointRouting = false);
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			app.UseStatusCodePages();
-			app.UseCors(builder => builder.AllowAnyOrigin());
+			app.UseCors(builder => builder
+				.AllowAnyOrigin()
+				.AllowAnyMethod()
+				.AllowAnyHeader());
+
 			app.UseMvc();
 		}
 	}
