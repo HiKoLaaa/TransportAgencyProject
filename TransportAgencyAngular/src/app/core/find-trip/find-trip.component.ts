@@ -1,9 +1,13 @@
 import {Component, Inject} from '@angular/core';
 import {FindFormFormGroup} from '../../find-form/find-form.form-group';
 import {TransportType} from '../../model/dbModel/transportType.model';
-import {Guid} from 'guid-typescript';
 import {FIND_INFO, FindTripInfoViewModel} from '../../view-model/findTripInfo.viewModel';
-import {Observer} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {Router} from '@angular/router';
+import {TransportTypeRepository} from '../../model/repository/transportTypeRepository.model';
+import {PlaceRepository} from '../../model/repository/placeRepository.model';
+import {filter} from 'rxjs/operators';
+import {Place} from '../../model/dbModel/place.model';
 
 @Component({
   selector: 'app-find-trip',
@@ -12,29 +16,76 @@ import {Observer} from 'rxjs';
 })
 export class FindTripComponent {
   form: FindFormFormGroup;
+  info: FindTripInfoViewModel;
   submitted: boolean;
+  transportTypes: TransportType[];
+  places: Place[];
 
-  // TODO: delete it.
-  tt: TransportType[];
-  tname: string;
-
-  constructor(@Inject(FIND_INFO) tripInfo: Observer<FindTripInfoViewModel>) {
+  constructor(@Inject(FIND_INFO) private tripInfo: BehaviorSubject<FindTripInfoViewModel>,
+              private router: Router,
+              private transportRepository: TransportTypeRepository,
+              private placeRepository: PlaceRepository) {
     this.form = new FindFormFormGroup();
+    this.form.get('kindTransport').setValue('none');
+    tripInfo.pipe(
+      filter(t => t.arrivalId !== undefined && t.departureId !== undefined && t.departureDate !== undefined))
+      .subscribe(info => {
+        this.info = info;
+        this.initForm();
+      });
 
-    // TODO: delete it.
-    const tt1 = new TransportType();
-    const tt2 = new TransportType();
+    transportRepository.getAllTypes().subscribe(tt => this.transportTypes = tt);
+    placeRepository.getAllPlaces().subscribe(pl => this.places = pl);
+  }
 
-    tt1.id = Guid.create();
-    tt1.name = 'bus';
-    tt2.id = Guid.create();
-    tt2.name = 'plane';
-    /************************************/
+  initForm() {
+    this.placeRepository.getPlace(this.info.departureId).subscribe(pl =>  {
+      this.form.get('departurePlace').setValue(pl.name);
+    });
 
-    this.tt = [tt1, tt2];
+    this.form.get('departureDate').setValue(this.info.departureDate);
+    this.placeRepository.getPlace(this.info.arrivalId).subscribe(pl =>  {
+      this.form.get('arrivalPlace').setValue(pl.name);
+    });
+
+    this.form.get('arrivalDate').setValue(this.info.arrivalDate);
+    this.transportRepository.getType(this.info.transportKindId).subscribe(tt =>  {
+      if (tt !== null && tt !== undefined) {
+        this.form.get('kindTransport').setValue(tt.name);
+      }
+    });
   }
 
   submitForm() {
     this.submitted = true;
+    if (this.form.valid) {
+      this.updateTripInfo();
+      this.tripInfo.next(this.info);
+      this.router.navigateByUrl('trips');
+    }
+  }
+
+  private updateTripInfo() {
+    this.info = new FindTripInfoViewModel();
+    let place = this.places.find(pl => pl.name === this.form.get('departurePlace').value);
+    if (place === undefined) {
+      return;
+    }
+
+    this.info.departureId = place.id;
+    this.info.departureDate = this.form.get('departureDate').value;
+    place = this.places.find(pl => pl.name === this.form.get('arrivalPlace').value);
+    if (place === undefined) {
+      return;
+    }
+
+    this.info.arrivalId = place.id;
+    this.info.arrivalDate = this.form.get('arrivalDate').value;
+    const tk = this.transportTypes.find(tt => tt.name === this.form.get('kindTransport').value);
+    if (tk === undefined) {
+      return;
+    }
+
+    this.info.transportKindId = tk.id;
   }
 }

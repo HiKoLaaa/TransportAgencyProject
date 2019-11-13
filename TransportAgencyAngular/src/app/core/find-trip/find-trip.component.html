@@ -47,11 +47,11 @@
         </div>
       </div>
       <div class="row justify-content-center mt-3">
-        <div class="col-12 col-md-3 text-center">
+        <div class="col-12 col-md-3 text-center form-group">
           <label class="font-size-70">Вид транспорта</label>
           <select class="form-control form-control-md" formControlName="kindTransport">
-            <option selected>Выберите транспорт...</option>
-            <option *ngFor="let i of tt">
+            <option value="none">Пусто</option>
+            <option [value]="i.name" *ngFor="let i of transportTypes">
               {{i.name}}
             </option>
           </select>
@@ -59,7 +59,7 @@
       </div>
       <div class="row justify-content-end mt-2">
         <div class="col-4 text-right">
-          <button type="submit" class="btn btn-info">Найти</button>
+          <button type="submit" [class.disabled]="submitted && form.invalid" class="btn btn-info">Найти</button>
         </div>
       </div>
     </form>
