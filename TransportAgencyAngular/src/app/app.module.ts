@@ -20,9 +20,7 @@ import {routing} from './routes/routes.routing';
     CoreModule,
     routing
   ],
-  providers: [
-    {provide: FIND_INFO, useValue: new Subject<FindTripInfoViewModel>()}
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

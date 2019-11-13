@@ -1,21 +1,23 @@
 import {HttpClient} from '@angular/common/http';
 import {TransportType} from '../dbModel/transportType.model';
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Guid} from 'guid-typescript';
+import {MAIN_PART_URL} from './url.model';
 
-const URL = 'https://localhost:44386/api/transporttype';
+const API_TRANPORT_TYPE = 'transporttype';
 
 @Injectable()
 export class TransportTypeRepository {
-  transportTypes: TransportType[];
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {
-    http.get<TransportType[]>(URL)
-      .subscribe(ans => {
-        this.transportTypes = ans;
-      });
+  getAllTypes(): Observable<TransportType[]> {
+    return this.http.get<TransportType[]>(`${MAIN_PART_URL}/${API_TRANPORT_TYPE}`);
   }
 
-  get allTypes(): TransportType[] {
-    return this.transportTypes;
+  getType(id: Guid): Observable<TransportType> {
+    return this.http.get<TransportType>(`${MAIN_PART_URL}/${API_TRANPORT_TYPE}/${id}`);
   }
+
+  // TODO: добавить остальные методы.
 }
