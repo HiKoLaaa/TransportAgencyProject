@@ -10,44 +10,39 @@
           </ul>
         </div>
       </div>
-      <div class="row justify-content-md-between justify-content-center">
-        <div class="row col-md-6 col-12 text-center">
-          <div *ngFor="let ctrl of form.tripDepartureControls" class="col-md-6 col-12 form-group">
-            <label class="font-size-70">{{ctrl.label}}</label>
-            <input *ngIf="ctrl.name==='departurePlace'" type="text" class="form-control form-control-md"
-                   [formControlName]="ctrl.name">
-
-            <input *ngIf="ctrl.name==='departureDate'" type="date" class="form-control form-control-md"
-                   [formControlName]="ctrl.name">
-
-            <ul class="text-danger list-unstyled font-size-70"
-                *ngIf="(submitted || form.controls[ctrl.name].dirty) && form.controls[ctrl.name].invalid">
-              <li *ngFor="let error of form.controls[ctrl.name].getErrors()">
-                {{error}}
-              </li>
-            </ul>
+      <div class="row justify-content-md-between justify-content-center text-center">
+        <div *ngFor="let ctrl of form.tripAllControls" class="col-md-6 col-12 form-group">
+          <label *ngIf="ctrl.name!=='kindTransport'" class="font-size-70">{{ctrl.label}}</label>
+          <div *ngIf="ctrl.name==='departurePlace' || ctrl.name==='arrivalPlace'" class="ng-autocomplete col-12">
+            <ng-autocomplete
+              [data]="places"
+              [searchKeyword]="keywordAutocomplete"
+              [itemTemplate]="itemTemplate"
+              [notFoundTemplate]="notFoundTemplate"
+              [formControlName]="ctrl.name">
+            </ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.name"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
           </div>
-        </div>
-        <div class="row col-md-6 col-12 text-center">
-          <div *ngFor="let ctrl of form.tripArrivalControls" class="col-md-6 col-12 form-group">
-            <label class="font-size-70">{{ctrl.label}}</label>
-            <input *ngIf="ctrl.name==='arrivalPlace'" type="text" class="form-control form-control-md"
+          <div class="col-12">
+            <input *ngIf="ctrl.name==='departureDate' || ctrl.name==='arrivalDate'" type="date"
+                   class="form-control form-control-md"
                    [formControlName]="ctrl.name">
-
-            <input *ngIf="ctrl.name==='arrivalDate'" type="date" class="form-control form-control-md"
-                   [formControlName]="ctrl.name">
-
-            <ul class="text-danger list-unstyled font-size-70"
-                *ngIf="(submitted || form.controls[ctrl.name].dirty) && form.controls[ctrl.name].invalid">
-              <li *ngFor="let error of form.controls[ctrl.name].getErrors()">
-                {{error}}
-              </li>
-            </ul>
           </div>
+          <ul class="text-danger list-unstyled font-size-70"
+              *ngIf="(submitted || form.controls[ctrl.name].dirty) && form.controls[ctrl.name].invalid">
+            <li *ngFor="let error of form.controls[ctrl.name].getErrors()">
+              {{error}}
+            </li>
+          </ul>
         </div>
       </div>
       <div class="row justify-content-center mt-3">
-        <div class="col-12 col-md-3 text-center form-group">
+        <div class="col-12 col-md-4 text-center form-group">
           <label class="font-size-70">Вид транспорта</label>
           <select class="form-control form-control-md" formControlName="kindTransport">
             <option value="none">Пусто</option>

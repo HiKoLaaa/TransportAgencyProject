@@ -20,6 +20,7 @@ export class FindTripComponent {
   submitted: boolean;
   transportTypes: TransportType[];
   places: Place[];
+  keywordAutocomplete: string;
 
   constructor(@Inject(FIND_INFO) private tripInfo: BehaviorSubject<FindTripInfoViewModel>,
               private router: Router,
@@ -36,6 +37,7 @@ export class FindTripComponent {
 
     transportRepository.getAllTypes().subscribe(tt => this.transportTypes = tt);
     placeRepository.getAllPlaces().subscribe(pl => this.places = pl);
+    this.keywordAutocomplete = 'name';
   }
 
   initForm() {
@@ -67,14 +69,14 @@ export class FindTripComponent {
 
   private updateTripInfo() {
     this.info = new FindTripInfoViewModel();
-    let place = this.places.find(pl => pl.name === this.form.get('departurePlace').value);
+    let place = this.places.find(pl => pl.name === this.form.get('departurePlace').value.name);
     if (place === undefined) {
       return;
     }
 
     this.info.departureId = place.id;
     this.info.departureDate = this.form.get('departureDate').value;
-    place = this.places.find(pl => pl.name === this.form.get('arrivalPlace').value);
+    place = this.places.find(pl => pl.name === this.form.get('arrivalPlace').value.name);
     if (place === undefined) {
       return;
     }
