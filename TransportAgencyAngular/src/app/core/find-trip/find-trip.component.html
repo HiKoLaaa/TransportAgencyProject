@@ -15,14 +15,13 @@
           <label *ngIf="ctrl.name!=='kindTransport'" class="font-size-70">{{ctrl.label}}</label>
           <div *ngIf="ctrl.name==='departurePlace' || ctrl.name==='arrivalPlace'" class="ng-autocomplete col-12">
             <ng-autocomplete
-              [data]="places"
-              [searchKeyword]="keywordAutocomplete"
+              [data]="placesNames"
               [itemTemplate]="itemTemplate"
               [notFoundTemplate]="notFoundTemplate"
               [formControlName]="ctrl.name">
             </ng-autocomplete>
             <ng-template #itemTemplate let-item>
-              <a [innerHTML]="item.name"></a>
+              <a [innerHTML]="item"></a>
             </ng-template>
             <ng-template #notFoundTemplate let-notFound>
               <div [innerHTML]="notFound"></div>

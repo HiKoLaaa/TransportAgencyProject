@@ -20,6 +20,7 @@ export class FindTripComponent {
   submitted: boolean;
   transportTypes: TransportType[];
   places: Place[];
+  placesNames: string[];
   keywordAutocomplete: string;
 
   constructor(@Inject(FIND_INFO) private tripInfo: BehaviorSubject<FindTripInfoViewModel>,
@@ -27,6 +28,7 @@ export class FindTripComponent {
               private transportRepository: TransportTypeRepository,
               private placeRepository: PlaceRepository) {
     this.form = new FindFormFormGroup();
+    this.placesNames = [];
     this.form.get('kindTransport').setValue('none');
     tripInfo.pipe(
       filter(t => t.arrivalId !== undefined && t.departureId !== undefined && t.departureDate !== undefined))
@@ -36,7 +38,12 @@ export class FindTripComponent {
       });
 
     transportRepository.getAllTypes().subscribe(tt => this.transportTypes = tt);
-    placeRepository.getAllPlaces().subscribe(pl => this.places = pl);
+    placeRepository.getAllPlaces().subscribe(pl => {
+      this.places = pl;
+      this.places.forEach(place => this.placesNames.push(place.name));
+
+      // TODO: добавить сортировку по возрастанию.
+    });
     this.keywordAutocomplete = 'name';
   }
 
@@ -69,14 +76,14 @@ export class FindTripComponent {
 
   private updateTripInfo() {
     this.info = new FindTripInfoViewModel();
-    let place = this.places.find(pl => pl.name === this.form.get('departurePlace').value.name);
+    let place = this.places.find(pl => pl.name === this.form.get('departurePlace').value);
     if (place === undefined) {
       return;
     }
 
     this.info.departureId = place.id;
     this.info.departureDate = this.form.get('departureDate').value;
-    place = this.places.find(pl => pl.name === this.form.get('arrivalPlace').value.name);
+    place = this.places.find(pl => pl.name === this.form.get('arrivalPlace').value);
     if (place === undefined) {
       return;
     }
