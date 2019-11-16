@@ -42,16 +42,16 @@ namespace TransportAgencyWebAPI.Models.Repository
 			Func<Trip, bool> tripInfo = (t =>
 			{
 				bool match = t.DeparturePlaceId == info.DepartureId && 
-					t.ArrivalPlaceId == info.ArrivalId && t.DepartureTime == info.DepartureDate;
+					t.ArrivalPlaceId == info.ArrivalId && t.DepartureTime.Date == info.DepartureDate.Date;
 
 				if (info.ArrivalDate.HasValue)
 				{
-					match = match && info.ArrivalDate.Value == t.ArrivalTime;
+					match = match && info.ArrivalDate.Value.Date == t.ArrivalTime.Date;
 				}
 
-				if (info.TranportTypeId.HasValue)
+				if (info.TransportTypeId.HasValue)
 				{
-					match = match && info.TranportTypeId.Value == t.TransportTypeId; 
+					match = match && info.TransportTypeId.Value == t.TransportTypeId; 
 				}
 
 				return match;

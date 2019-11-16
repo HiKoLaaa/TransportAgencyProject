@@ -21,7 +21,7 @@ namespace TransportAgencyWebAPI.Controllers
 		public IEnumerable<Trip> Get() => _unitOfWork.TripRepository.GetAll();
 
 		[HttpGet("sort")]
-		public IEnumerable<Trip> Get([FromBody]FindTripInfoViewModel info) => _unitOfWork.TripRepository.GetAll(info);
+		public IEnumerable<Trip> Get(FindTripInfoViewModel info) => _unitOfWork.TripRepository.GetAll(info);
 
 		[HttpGet("{id}")]
 		public Trip Get(Guid id) => _unitOfWork.TripRepository.GetOne(id);

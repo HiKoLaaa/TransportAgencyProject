@@ -12,6 +12,6 @@ namespace TransportAgencyWebAPI.Models.ViewModels
 		public DateTime? ArrivalDate { get; set; }
 		public Guid DepartureId { get; set; }
 		public DateTime DepartureDate { get; set; }
-		public Guid? TranportTypeId { get; set; }
+		public Guid? TransportTypeId { get; set; }
 	}
 }
