@@ -1,13 +1,13 @@
 import {Component, Inject} from '@angular/core';
 import {FindFormFormGroup} from '../../find-form/find-form.form-group';
 import {TransportType} from '../../model/dbModel/transportType.model';
-import {FIND_INFO, FindTripInfoViewModel} from '../../view-model/findTripInfo.viewModel';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import {TransportTypeRepository} from '../../model/repository/transportTypeRepository.model';
 import {PlaceRepository} from '../../model/repository/placeRepository.model';
 import {filter} from 'rxjs/operators';
 import {Place} from '../../model/dbModel/place.model';
+import {FIND_INFO, FindTripInfoClientViewModel} from '../../view-model/find-trip-info.client.view-model';
 
 @Component({
   selector: 'app-find-trip',
@@ -16,22 +16,25 @@ import {Place} from '../../model/dbModel/place.model';
 })
 export class FindTripComponent {
   form: FindFormFormGroup;
-  info: FindTripInfoViewModel;
+  info: FindTripInfoClientViewModel;
   submitted: boolean;
   transportTypes: TransportType[];
   places: Place[];
   placesNames: string[];
   keywordAutocomplete: string;
 
-  constructor(@Inject(FIND_INFO) private tripInfo: BehaviorSubject<FindTripInfoViewModel>,
+  // TODO: написать guard на resolve.
+  constructor(@Inject(FIND_INFO) private tripInfo: BehaviorSubject<FindTripInfoClientViewModel>,
               private router: Router,
               private transportRepository: TransportTypeRepository,
               private placeRepository: PlaceRepository) {
     this.form = new FindFormFormGroup();
     this.placesNames = [];
     this.form.get('kindTransport').setValue('none');
+    // TODO: убрать лишние проверки.
     tripInfo.pipe(
-      filter(t => t.arrivalId !== undefined && t.departureId !== undefined && t.departureDate !== undefined))
+      filter(t => t.arrivalPlace !== undefined &&
+        t.departurePlace !== undefined && t.departureDate !== undefined))
       .subscribe(info => {
         this.info = info;
         this.initForm();
@@ -48,21 +51,13 @@ export class FindTripComponent {
   }
 
   initForm() {
-    this.placeRepository.getPlace(this.info.departureId).subscribe(pl =>  {
-      this.form.get('departurePlace').setValue(pl.name);
-    });
-
+    this.form.get('departurePlace').setValue(this.info.departurePlace.name);
     this.form.get('departureDate').setValue(this.info.departureDate);
-    this.placeRepository.getPlace(this.info.arrivalId).subscribe(pl =>  {
-      this.form.get('arrivalPlace').setValue(pl.name);
-    });
-
+    this.form.get('arrivalPlace').setValue(this.info.arrivalPlace.name);
     this.form.get('arrivalDate').setValue(this.info.arrivalDate);
-    this.transportRepository.getType(this.info.transportKindId).subscribe(tt =>  {
-      if (tt !== null && tt !== undefined) {
-        this.form.get('kindTransport').setValue(tt.name);
-      }
-    });
+    if (this.info.transportType !== null && this.info.transportType !== undefined) {
+      this.form.get('kindTransport').setValue(this.info.transportType.name);
+    }
   }
 
   submitForm() {
@@ -75,26 +70,27 @@ export class FindTripComponent {
   }
 
   private updateTripInfo() {
-    this.info = new FindTripInfoViewModel();
+    // TODO: убрать лишние проверки.
+    this.info = new FindTripInfoClientViewModel();
     let place = this.places.find(pl => pl.name === this.form.get('departurePlace').value);
     if (place === undefined) {
       return;
     }
 
-    this.info.departureId = place.id;
+    this.info.departurePlace = place;
     this.info.departureDate = this.form.get('departureDate').value;
     place = this.places.find(pl => pl.name === this.form.get('arrivalPlace').value);
     if (place === undefined) {
       return;
     }
 
-    this.info.arrivalId = place.id;
+    this.info.arrivalPlace = place;
     this.info.arrivalDate = this.form.get('arrivalDate').value;
     const tk = this.transportTypes.find(tt => tt.name === this.form.get('kindTransport').value);
     if (tk === undefined) {
       return;
     }
 
-    this.info.transportKindId = tk.id;
+    this.info.transportType = tk;
   }
 }

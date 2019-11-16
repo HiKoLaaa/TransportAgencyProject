@@ -2,5 +2,31 @@
   <div class="col-12 text-center font-weight-bold">
     Ваши параметры
   </div>
-  <button class="btn btn-info" (click)="goBack()">Назад</button>
+  <div class="col-12 row">
+    <div class="col-lg-3 col-md-6 col-12"
+         *appIterateInfoFor="let param of infoParameters; let label=label; let value=value">
+      <div class="text-center text-white rounded-info m-2 bg-info">
+        {{label}}
+        <br>
+        <span class="text-orange" *ngIf="value===''">Не было указано</span>
+        <span class="text-orange" *ngIf="value!==''">{{value}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-info float-right" (click)="goBack()">Изменить параметры</button>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-12 text-center" *ngIf="findTrips.length===0">Не найдено рейсов по подходящим параметрам</div>
+  <div class="col-12" *ngFor="let suitTr of findTrips">
+    <div class="row bg-success rounded-info p-2 text-white">
+      <div class="col-lg-6 col-md-12 col-12 mb-1">Куда: {{suitTr.arrivalPlace.name}}</div>
+      <div class="col-lg-6 col-md-12 col-12 mb-1">Дата прибытия: {{suitTr.arrivalTime}}</div>
+      <div class="col-lg-6 col-md-12 col-12 mb-1">Откуда: {{suitTr.departurePlace.name}}</div>
+      <div class="col-lg-6 col-md-12 col-12 mb-1">Дата отправления: {{suitTr.departureTime}}</div>
+      <div class="col-lg-6 col-md-12 col-12 mb-1">Тип транспорта: {{suitTr.transportType.name}}</div>
+      <div class="col-lg-6 col-md-12 col-12 mb-1"><button class="float-right btn btn-danger">Купить</button></div>
+    </div>
+  </div>
 </div>

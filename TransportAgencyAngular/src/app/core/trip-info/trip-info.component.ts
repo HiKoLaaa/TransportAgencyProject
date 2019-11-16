@@ -1,8 +1,13 @@
 import {Component, Inject} from '@angular/core';
-import {FIND_INFO, FindTripInfoViewModel} from '../../view-model/findTripInfo.viewModel';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
+import {FIND_INFO, FindTripInfoClientViewModel} from '../../view-model/find-trip-info.client.view-model';
+import {Place} from '../../model/dbModel/place.model';
+import {PlaceRepository} from '../../model/repository/placeRepository.model';
+import {FindTripInfoRequestServerViewModel} from '../../view-model/find-trip-info.request-server.view-model';
+import {Trip} from '../../model/dbModel/trip.model';
+import {TripRepository} from '../../model/repository/tripRepository.model';
 
 @Component({
   selector: 'app-trip-info',
@@ -10,19 +15,61 @@ import {filter} from 'rxjs/operators';
   styleUrls: ['./trip-info.component.scss']
 })
 export class TripInfoComponent {
-  info: FindTripInfoViewModel;
+  info: FindTripInfoClientViewModel;
+  infoParameters: Map<string, string>;
+  findTrips: Trip[];
 
-  constructor(@Inject(FIND_INFO) private tripInfo: BehaviorSubject<FindTripInfoViewModel>,
-              private router: Router) {
+  constructor(@Inject(FIND_INFO) private tripInfo: BehaviorSubject<FindTripInfoClientViewModel>,
+              private router: Router,
+              private tripRepository: TripRepository) {
+    this.infoParameters = new Map();
+    this.findTrips = [];
+    // TODO: убрать лишние проверки.
     tripInfo.pipe(
-      filter(t => t.arrivalId !== undefined && t.departureId !== undefined && t.departureDate !== undefined))
+      filter(t => t.arrivalPlace !== undefined &&
+        t.departurePlace !== undefined && t.departureDate !== undefined))
       .subscribe(info => {
       this.info = info;
+      this.setViewInfo();
     });
+
+    tripRepository.getSuitableTrips(this.modifyInfo())
+      .subscribe(suitPl => {
+        this.findTrips = suitPl;
+      });
   }
 
   goBack() {
     this.router.navigateByUrl('/find');
     this.tripInfo.next(this.info);
+  }
+
+  private setViewInfo() {
+    this.infoParameters.set('Откуда', this.info.departurePlace.name);
+    this.infoParameters.set('Дата отправления', this.info.departureDate.toString());
+    this.infoParameters.set('Куда', this.info.arrivalPlace.name);
+    this.infoParameters.set('Дата прибытия', this.info.arrivalDate.toString());
+
+    const transportType = 'Вид транспорта';
+    if (this.info.transportType !== undefined) {
+      this.infoParameters.set(transportType, this.info.transportType.name);
+    }
+    else {
+      this.infoParameters.set(transportType, '');
+    }
+  }
+
+  private modifyInfo(): FindTripInfoRequestServerViewModel {
+    const tripInfo = new FindTripInfoRequestServerViewModel();
+    tripInfo.arrivalId = this.info.arrivalPlace.id;
+    tripInfo.arrivalDate = this.info.arrivalDate;
+    tripInfo.departureDate = this.info.departureDate;
+    tripInfo.departureId = this.info.departurePlace.id;
+
+    if (this.info.transportType !== undefined) {
+      tripInfo.transportTypeId = this.info.transportType.id;
+    }
+
+    return tripInfo;
   }
 }
