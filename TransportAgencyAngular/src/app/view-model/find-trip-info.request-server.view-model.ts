@@ -5,5 +5,5 @@ export class FindTripInfoRequestServerViewModel {
   arrivalDate?: Date;
   departureId: Guid;
   departureDate: Date;
-  transportKindId: Guid;
+  transportTypeId: Guid;
 }

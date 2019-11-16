@@ -18,6 +18,5 @@ export class PlaceRepository {
   getPlace(id: Guid): Observable<Place> {
     return this.http.get<Place>(`${MAIN_PART_URL}/${API_PLACE}/${id}`);
   }
-
   // TODO: добавить остальные методы.
 }
