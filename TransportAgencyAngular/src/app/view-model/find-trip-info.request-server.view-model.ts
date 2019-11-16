@@ -1,8 +1,6 @@
 import {Guid} from 'guid-typescript';
-import {InjectionToken} from '@angular/core';
 
-export const FIND_INFO = new InjectionToken('find_info');
-export class FindTripInfoViewModel {
+export class FindTripInfoRequestServerViewModel {
   arrivalId: Guid;
   arrivalDate?: Date;
   departureId: Guid;
