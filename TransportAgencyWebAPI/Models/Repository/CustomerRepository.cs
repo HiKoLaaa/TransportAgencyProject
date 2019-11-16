@@ -20,7 +20,14 @@ namespace TransportAgencyWebAPI.Models.Repository
 
 		public void DeleteItem(Guid id) => _context.Customers.Remove(_context.Customers.Find(id));
 
-		public void EditItem(Customer item) => _context.Customers.Update(item);
+		public void EditItem(Customer item)
+		{
+			Customer editCustomer = _context.Customers.Find(item.Id);
+			editCustomer.Number = item.Number;
+			editCustomer.FirstName = item.FirstName;
+			editCustomer.SecondName = item.SecondName;
+			editCustomer.TripId = item.Trip.Id;
+		}
 
 		public IEnumerable<Customer> GetAll() => _context.Customers.Include(c => c.Trip);
 

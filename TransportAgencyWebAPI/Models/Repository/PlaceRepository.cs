@@ -27,7 +27,6 @@ namespace TransportAgencyWebAPI.Models.Repository
 			Place editPlace = _context.Places.Find(item.Id);
 			editPlace.CountryId = item.Country.Id;
 			editPlace.Name = item.Name;
-			_context.Places.Update(editPlace);
 		}
 
 		public IEnumerable<Place> GetAll() => _context.Places.Include(p => p.Country);

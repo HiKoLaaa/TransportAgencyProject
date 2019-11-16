@@ -24,7 +24,6 @@ namespace TransportAgencyWebAPI.Models.Repository
 		{
 			TransportType editTransportType = _context.TransportTypes.Find(item.Id);
 			editTransportType.Name = item.Name;
-			_context.TransportTypes.Update(editTransportType);
 		}
 
 		public IEnumerable<TransportType> GetAll() => _context.TransportTypes;
