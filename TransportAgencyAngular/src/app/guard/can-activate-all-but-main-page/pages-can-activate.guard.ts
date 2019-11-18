@@ -1,0 +1,30 @@
+import {Injectable} from '@angular/core';
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {FindTripComponent} from '../../core/find-trip/find-trip.component';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PagesCanActivateGuard implements CanActivate {
+  private firstNavigation = true;
+
+  constructor(private router: Router) {
+  }
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+    if (this.firstNavigation) {
+      this.firstNavigation = false;
+      if (next.component !== FindTripComponent) {
+        this.router.navigateByUrl('/');
+        return false;
+      }
+    }
+
+    return true;
+  }
+}
+

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {ModelModule} from './model/model.module';
 import {CoreModule} from './core/core.module';
 import {routing} from './routes/routes.routing';
+import {GuardModule} from './guard/guard.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {routing} from './routes/routes.routing';
     AppRoutingModule,
     ModelModule,
     CoreModule,
-    routing
+    routing,
+    GuardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

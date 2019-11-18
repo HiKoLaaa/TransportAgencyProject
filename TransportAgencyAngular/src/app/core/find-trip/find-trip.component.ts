@@ -44,8 +44,7 @@ export class FindTripComponent {
     placeRepository.getAllPlaces().subscribe(pl => {
       this.places = pl;
       this.places.forEach(place => this.placesNames.push(place.name));
-
-      // TODO: добавить сортировку по возрастанию.
+      this.placesNames.sort();
     });
     this.keywordAutocomplete = 'name';
   }
