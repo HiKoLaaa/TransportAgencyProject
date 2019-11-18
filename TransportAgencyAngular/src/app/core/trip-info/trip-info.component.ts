@@ -22,10 +22,7 @@ export class TripInfoComponent {
               private tripRepository: TripRepository) {
     this.infoParameters = new Map();
     this.findTrips = [];
-    // TODO: убрать лишние проверки.
-    tripInfo.pipe(
-      filter(t => t.arrivalPlace !== undefined &&
-        t.departurePlace !== undefined && t.departureDate !== undefined))
+    tripInfo
       .subscribe(info => {
       this.info = info;
       this.setViewInfo();

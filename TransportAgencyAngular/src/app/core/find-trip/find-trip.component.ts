@@ -1,13 +1,14 @@
 import {Component, Inject} from '@angular/core';
 import {FindTripFormGroup} from '../../form/find-trip.form-group';
 import {TransportType} from '../../model/dbModel/transportType.model';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {TransportTypeRepository} from '../../model/repository/transportTypeRepository.model';
 import {PlaceRepository} from '../../model/repository/placeRepository.model';
 import {filter} from 'rxjs/operators';
 import {Place} from '../../model/dbModel/place.model';
 import {FIND_INFO, FindTripInfoClientViewModel} from '../../view-model/find-trip-info.client.view-model';
+import {AvailablePlaceValidator} from '../../validator/available-place.validator';
 
 @Component({
   selector: 'app-find-trip',
@@ -23,7 +24,6 @@ export class FindTripComponent {
   placesNames: string[];
   keywordAutocomplete: string;
 
-  // TODO: написать guard на resolve.
   constructor(@Inject(FIND_INFO) private tripInfo: BehaviorSubject<FindTripInfoClientViewModel>,
               private router: Router,
               private transportRepository: TransportTypeRepository,
@@ -31,7 +31,6 @@ export class FindTripComponent {
     this.form = new FindTripFormGroup();
     this.placesNames = [];
     this.form.get('kindTransport').setValue('none');
-    // TODO: убрать лишние проверки.
     tripInfo.pipe(
       filter(t => t.arrivalPlace !== undefined &&
         t.departurePlace !== undefined && t.departureDate !== undefined))
@@ -45,7 +44,21 @@ export class FindTripComponent {
       this.places = pl;
       this.places.forEach(place => this.placesNames.push(place.name));
       this.placesNames.sort();
+      const validator = new AvailablePlaceValidator(this.places);
+      this.form.get('departurePlace').setValidators([
+        validator.validate.bind(this),
+        this.form.get('departurePlace').validator
+      ]);
+
+      this.form.get('arrivalPlace').setValidators([
+        validator.validate.bind(this),
+        this.form.get('arrivalPlace').validator
+      ]);
+
+      this.form.get('departurePlace').updateValueAndValidity();
+      this.form.get('arrivalPlace').updateValueAndValidity();
     });
+
     this.keywordAutocomplete = 'name';
   }
 
@@ -69,21 +82,15 @@ export class FindTripComponent {
   }
 
   private updateTripInfo() {
-    // TODO: убрать лишние проверки.
     this.info = new FindTripInfoClientViewModel();
     let place = this.places.find(pl => pl.name === this.form.get('departurePlace').value);
-    if (place === undefined) {
-      return;
-    }
-
     this.info.departurePlace = place;
-    this.info.departureDate = this.form.get('departureDate').value;
-    place = this.places.find(pl => pl.name === this.form.get('arrivalPlace').value);
-    if (place === undefined) {
-      return;
-    }
 
+    this.info.departureDate = this.form.get('departureDate').value;
+
+    place = this.places.find(pl => pl.name === this.form.get('arrivalPlace').value);
     this.info.arrivalPlace = place;
+    
     this.info.arrivalDate = this.form.get('arrivalDate').value;
     const tk = this.transportTypes.find(tt => tt.name === this.form.get('kindTransport').value);
     if (tk === undefined) {

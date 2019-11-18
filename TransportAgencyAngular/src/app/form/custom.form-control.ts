@@ -18,6 +18,9 @@ export class CustomFormControl extends FormControl {
           case 'required':
             messages.push(`Поле "${this.label}" должно быть заполнено`);
             break;
+          case 'notFound':
+            messages.push(`Выберите место из списка "${this.label}"`);
+            break;
         }
       }
     }
