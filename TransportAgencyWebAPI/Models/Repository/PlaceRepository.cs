@@ -18,7 +18,12 @@ namespace TransportAgencyWebAPI.Models.Repository
 			_context = context;
 		}
 
-		public void AddItem(Place item) => _context.Places.Add(item);
+		public void AddItem(Place item)
+		{
+			item.CountryId = item.Country.Id;
+			item.Country = null;
+			_context.Places.Add(item);
+		}
 
 		public void DeleteItem(Guid id) => _context.Places.Remove(_context.Places.Find(id));
 

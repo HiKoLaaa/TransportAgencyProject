@@ -17,7 +17,16 @@ namespace TransportAgencyWebAPI.Models.Repository
 			_context = context;
 		}
 
-		public void AddItem(Trip item) => _context.Trips.Add(item);
+		public void AddItem(Trip item)
+		{
+			item.TransportTypeId = item.TransportType.Id;
+			item.ArrivalPlaceId = item.ArrivalPlace.Id;
+			item.DeparturePlaceId = item.DeparturePlace.Id;
+			item.TransportType = null;
+			item.ArrivalPlace = null;
+			item.DeparturePlace = null;
+			_context.Trips.Add(item);
+		}
 
 		public void DeleteItem(Guid id) => _context.Trips.Remove(_context.Trips.Find(id));
 

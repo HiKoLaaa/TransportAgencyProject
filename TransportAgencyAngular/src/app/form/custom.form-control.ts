@@ -1,6 +1,6 @@
 import {FormControl} from '@angular/forms';
 
-export class FindFormFormControl extends FormControl {
+export class CustomFormControl extends FormControl {
   public name: string;
   public label: string;
 
