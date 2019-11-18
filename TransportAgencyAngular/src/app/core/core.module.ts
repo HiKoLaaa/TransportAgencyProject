@@ -10,12 +10,16 @@ import {TripInfoComponent} from './trip-info/trip-info.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import {DirectiveModule} from './directives/directive.module';
 import {FIND_INFO, FindTripInfoClientViewModel} from '../view-model/find-trip-info.client.view-model';
+import { CustomerInfoComponent } from './customer-info/customer-info.component';
+import { ThanksMessageComponent } from './thanks-message/thanks-message.component';
 
 @NgModule({
   imports: [BrowserModule, RouterModule, FormsModule, ReactiveFormsModule, AutocompleteLibModule, DirectiveModule],
-  declarations: [HeaderComponent, FooterComponent, FindTripComponent, TripInfoComponent],
+  declarations: [HeaderComponent, FooterComponent, FindTripComponent, TripInfoComponent, CustomerInfoComponent, ThanksMessageComponent],
   providers: [
-    {provide: FIND_INFO, useValue: new BehaviorSubject<FindTripInfoClientViewModel>(new FindTripInfoClientViewModel())}
+    {
+      provide: FIND_INFO, useValue: new BehaviorSubject<FindTripInfoClientViewModel>(new FindTripInfoClientViewModel())
+    }
   ],
   exports: [HeaderComponent, FooterComponent, FindTripComponent]
 })

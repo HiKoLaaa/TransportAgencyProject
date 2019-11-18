@@ -17,7 +17,7 @@
     <button class="btn btn-warning float-md-right float-none" (click)="goBack()">Изменить параметры</button>
   </div>
 </div>
-<div class="row m-1">
+<div class="row m-1 mt-4">
   <div class="col-12 text-center" *ngIf="findTrips.length===0">Не найдено рейсов по подходящим параметрам</div>
   <div class="col-12" *ngFor="let suitTr of findTrips">
     <div class="row bg-success rounded-info p-2 text-white">
@@ -35,7 +35,7 @@
       </div>
       <div class="col-lg-6 col-md-12 col-12 mb-1">Тип транспорта: {{suitTr.transportType.name}}</div>
       <div class="col-lg-6 col-md-12 col-12 mb-1">
-        <button class="float-right btn btn-danger">Купить</button>
+        <button class="float-right btn btn-danger" [routerLink]="['/new_order', {tripId: suitTr.id}]">Купить</button>
       </div>
     </div>
   </div>

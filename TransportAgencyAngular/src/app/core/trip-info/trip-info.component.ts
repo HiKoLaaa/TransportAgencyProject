@@ -3,8 +3,6 @@ import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {FIND_INFO, FindTripInfoClientViewModel} from '../../view-model/find-trip-info.client.view-model';
-import {Place} from '../../model/dbModel/place.model';
-import {PlaceRepository} from '../../model/repository/placeRepository.model';
 import {FindTripInfoRequestServerViewModel} from '../../view-model/find-trip-info.request-server.view-model';
 import {Trip} from '../../model/dbModel/trip.model';
 import {TripRepository} from '../../model/repository/tripRepository.model';

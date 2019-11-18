@@ -3,6 +3,7 @@ import {TransportTypeRepository} from './repository/transportTypeRepository.mode
 import {HttpClientModule} from '@angular/common/http';
 import {PlaceRepository} from './repository/placeRepository.model';
 import {TripRepository} from './repository/tripRepository.model';
+import {CustomerRepository} from './repository/customerRepository';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import {TripRepository} from './repository/tripRepository.model';
   providers: [
     TransportTypeRepository,
     PlaceRepository,
-    TripRepository
+    TripRepository,
+    CustomerRepository
   ]
 })
 export class ModelModule { }

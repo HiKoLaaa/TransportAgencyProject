@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {FindFormFormGroup} from '../../find-form/find-form.form-group';
+import {FindTripFormGroup} from '../../form/find-trip.form-group';
 import {TransportType} from '../../model/dbModel/transportType.model';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
@@ -15,7 +15,7 @@ import {FIND_INFO, FindTripInfoClientViewModel} from '../../view-model/find-trip
   styleUrls: ['./find-trip.component.scss']
 })
 export class FindTripComponent {
-  form: FindFormFormGroup;
+  form: FindTripFormGroup;
   info: FindTripInfoClientViewModel;
   submitted: boolean;
   transportTypes: TransportType[];
@@ -28,7 +28,7 @@ export class FindTripComponent {
               private router: Router,
               private transportRepository: TransportTypeRepository,
               private placeRepository: PlaceRepository) {
-    this.form = new FindFormFormGroup();
+    this.form = new FindTripFormGroup();
     this.placesNames = [];
     this.form.get('kindTransport').setValue('none');
     // TODO: убрать лишние проверки.
