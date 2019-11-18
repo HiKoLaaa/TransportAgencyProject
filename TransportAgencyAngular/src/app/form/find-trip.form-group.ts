@@ -27,7 +27,7 @@ export class FindTripFormGroup extends FormGroup {
   }
 
   getFormErrors(): string[] {
-    let messages: string[] = [];
+    const messages: string[] = [];
     this.tripAllControls.forEach(c => c.getErrors()
       .forEach(m => messages.push(m)));
 

@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {FindTripFormGroup} from '../../form/find-trip.form-group';
 import {TransportType} from '../../model/dbModel/transportType.model';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import {TransportTypeRepository} from '../../model/repository/transportTypeRepository.model';
 import {PlaceRepository} from '../../model/repository/placeRepository.model';
@@ -90,7 +90,7 @@ export class FindTripComponent {
 
     place = this.places.find(pl => pl.name === this.form.get('arrivalPlace').value);
     this.info.arrivalPlace = place;
-    
+
     this.info.arrivalDate = this.form.get('arrivalDate').value;
     const tk = this.transportTypes.find(tt => tt.name === this.form.get('kindTransport').value);
     if (tk === undefined) {

@@ -4,8 +4,6 @@ import {CustomerRepository} from '../../model/repository/customerRepository';
 import {Customer} from '../../model/dbModel/customer.model';
 import {Trip} from '../../model/dbModel/trip.model';
 import {TripRepository} from '../../model/repository/tripRepository.model';
-import {BehaviorSubject} from 'rxjs';
-import {Guid} from 'guid-typescript';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -36,7 +34,6 @@ export class CustomerInfoComponent {
       this.customerRepository.addCustomer(this.customer).subscribe();
     }
 
-    // TODO: сделать переход на страницу благодарности.
     this.router.navigateByUrl('thanks');
   }
 

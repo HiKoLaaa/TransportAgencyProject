@@ -1,7 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
 import {FIND_INFO, FindTripInfoClientViewModel} from '../../view-model/find-trip-info.client.view-model';
 import {FindTripInfoRequestServerViewModel} from '../../view-model/find-trip-info.request-server.view-model';
 import {Trip} from '../../model/dbModel/trip.model';
