@@ -4,9 +4,7 @@ import {MAIN_PART_URL} from './url.model';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Guid} from 'guid-typescript';
-import {Trip} from '../dbModel/trip.model';
-import {TransportType} from '../dbModel/transportType.model';
-import {Place} from '../dbModel/place.model';
+import {Trip} from '../dbModel/trip.model';\
 
 const API_TRIP = 'trip';
 
@@ -48,20 +46,31 @@ export class TripRepository {
   }
 
   editTrip(editTrip: Trip): Observable<Trip> {
-    const body = {
-      id: editTrip.id,
-      transportType: editTrip.transportType,
-      departurePlace: editTrip.departurePlace,
-      arrivalPlace: editTrip.arrivalPlace,
-      departureTime: editTrip.departureTime,
-      arrivalTime: editTrip.arrivalTime,
-      price: editTrip.price,
-      availableTickets: editTrip.availableTickets,
-      saleTickets: editTrip.saleTickets
-    };
-
-    return this.http.put<Trip>(`${MAIN_PART_URL}/${API_TRIP}`, body);
+    return this.http.put<Trip>(`${MAIN_PART_URL}/${API_TRIP}`, this.prepareToSave(editTrip));
   }
 
-  // TODO: добавить остальные методы.
+  addTrip(trip: Trip): Observable<Trip> {
+    trip.id = Guid.create();
+    return this.http.post<Trip>(`${MAIN_PART_URL}/${API_TRIP}`, this.prepareToSave(trip));
+  }
+
+  deleteTrip(id: Guid): Observable<Trip> {
+    return this.http.delete<Trip>(`${MAIN_PART_URL}/${API_TRIP}/${id}`);
+  }
+
+  private prepareToSave(trip: Trip): object {
+    const body = {
+      id: trip.id,
+      transportType: trip.transportType,
+      departurePlace: trip.departurePlace,
+      arrivalPlace: trip.arrivalPlace,
+      departureTime: trip.departureTime,
+      arrivalTime: trip.arrivalTime,
+      price: trip.price,
+      availableTickets: trip.availableTickets,
+      saleTickets: trip.saleTickets
+    };
+
+    return body;
+  }
 }

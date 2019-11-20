@@ -18,5 +18,27 @@ export class PlaceRepository {
   getPlace(id: Guid): Observable<Place> {
     return this.http.get<Place>(`${MAIN_PART_URL}/${API_PLACE}/${id}`);
   }
-  // TODO: добавить остальные методы.
+
+  addPlace(place: Place): Observable<Place> {
+    place.id = Guid.create();
+    return this.http.post<Place>(`${MAIN_PART_URL}/${API_PLACE}`, this.prepareToSave(place));
+  }
+
+  editPlace(place: Place): Observable<Place> {
+    return this.http.put<Place>(`${MAIN_PART_URL}/${API_PLACE}`, this.prepareToSave(place));
+  }
+
+  deletePlace(id: Guid): Observable<Place> {
+    return this.http.delete<Place>(`${MAIN_PART_URL}/${API_PLACE}/${id}`);
+  }
+
+  private prepareToSave(place: Place): object {
+    const body = {
+      id: place.id,
+      name: place.name,
+      country: place.country
+    };
+
+    return body;
+  }
 }
