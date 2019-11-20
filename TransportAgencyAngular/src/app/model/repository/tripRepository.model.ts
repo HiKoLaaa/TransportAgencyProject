@@ -4,7 +4,7 @@ import {MAIN_PART_URL} from './url.model';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Guid} from 'guid-typescript';
-import {Trip} from '../dbModel/trip.model';\
+import {Trip} from '../dbModel/trip.model';
 
 const API_TRIP = 'trip';
 
