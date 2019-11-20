@@ -10,4 +10,6 @@ export class Trip {
   departureTime: Date;
   arrivalTime: Date;
   price: number;
+  availableTickets: number;
+  saleTickets: number;
 }

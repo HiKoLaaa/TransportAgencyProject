@@ -27,6 +27,10 @@ namespace TransportAgencyWebAPI.Models.DbModels
 
 		public DateTime ArrivalTime { get; set; }
 
+		public int AvailableTickets { get; set; }
+
+		public int SaleTickets { get; set; }
+
 		public decimal Price { get; set; }
 
 		[JsonIgnore]

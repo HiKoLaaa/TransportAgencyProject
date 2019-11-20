@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TransportAgencyWebAPI.Models.DbContext;
 
 namespace TransportAgencyWebAPI.Migrations
 {
     [DbContext(typeof(TransportAgencyContext))]
-    partial class TransportAgencyContextModelSnapshot : ModelSnapshot
+    [Migration("20191120065214_TicketsInfo")]
+    partial class TicketsInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

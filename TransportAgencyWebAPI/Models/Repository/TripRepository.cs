@@ -39,6 +39,8 @@ namespace TransportAgencyWebAPI.Models.Repository
 			editTrip.ArrivalTime = item.ArrivalTime;
 			editTrip.DepartureTime = item.DepartureTime;
 			editTrip.Price = item.Price;
+			editTrip.AvailableTickets = item.AvailableTickets;
+			editTrip.SaleTickets = item.SaleTickets;
 		}
 		
 		public IEnumerable<Trip> GetAll() => _context.Trips

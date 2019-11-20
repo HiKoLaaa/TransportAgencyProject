@@ -5,6 +5,8 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Guid} from 'guid-typescript';
 import {Trip} from '../dbModel/trip.model';
+import {TransportType} from '../dbModel/transportType.model';
+import {Place} from '../dbModel/place.model';
 
 const API_TRIP = 'trip';
 
@@ -25,8 +27,7 @@ export class TripRepository {
     const tt = () => {
       if (info.transportTypeId === undefined) {
         return '';
-      }
-      else {
+      } else {
         return info.transportTypeId.toString();
       }
     };
@@ -44,6 +45,22 @@ export class TripRepository {
     return this.http.get<Trip[]>(`${MAIN_PART_URL}/${API_TRIP}/sort`, {
       params: paramets
     });
+  }
+
+  editTrip(editTrip: Trip): Observable<Trip> {
+    const body = {
+      id: editTrip.id,
+      transportType: editTrip.transportType,
+      departurePlace: editTrip.departurePlace,
+      arrivalPlace: editTrip.arrivalPlace,
+      departureTime: editTrip.departureTime,
+      arrivalTime: editTrip.arrivalTime,
+      price: editTrip.price,
+      availableTickets: editTrip.availableTickets,
+      saleTickets: editTrip.saleTickets
+    };
+
+    return this.http.put<Trip>(`${MAIN_PART_URL}/${API_TRIP}`, body);
   }
 
   // TODO: добавить остальные методы.
