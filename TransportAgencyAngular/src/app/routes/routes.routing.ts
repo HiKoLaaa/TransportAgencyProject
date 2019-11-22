@@ -11,8 +11,7 @@ const routes = [
   {
     path: 'trips',
     component: TripInfoComponent,
-    resolve: {tripResolve: ResolveTripInfoGuard},
-    canActivate: [PagesCanActivateGuard]
+    resolve: {tripResolve: ResolveTripInfoGuard}
   },
   {path: 'new_order', component: CustomerInfoComponent, canActivate: [PagesCanActivateGuard]},
   {path: 'thanks', component: ThanksMessageComponent, canActivate: [PagesCanActivateGuard]},

@@ -33,8 +33,8 @@
                    [formControlName]="ctrl.name">
           </div>
           <ul class="text-danger list-unstyled font-size-70"
-              *ngIf="(submitted || form.controls[ctrl.name].dirty) && form.controls[ctrl.name].invalid">
-            <li *ngFor="let error of form.controls[ctrl.name].getErrors()">
+              *ngIf="(submitted || ctrl.dirty) && ctrl.invalid">
+            <li *ngFor="let error of ctrl.getErrors()">
               {{error}}
             </li>
           </ul>
