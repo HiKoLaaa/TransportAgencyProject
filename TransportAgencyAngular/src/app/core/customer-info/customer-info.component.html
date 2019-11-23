@@ -1,5 +1,5 @@
 <div class="row justify-content-center mt-5">
-  <div class="col-6">
+  <div class="col-md-6 col-12">
     <form [formGroup]="form" (ngSubmit)="formSubmit()">
       <div *ngIf="submitted && form.invalid" class="row">
         <div class="col-12 text-white bg-danger p-2 error-text">
@@ -16,7 +16,7 @@
           <input class="form-control" [formControlName]="ctrl.name">
         </div>
       </div>
-      <button type="submit" class="btn btn-success">Купить</button>
+      <button type="submit" class="btn btn-success text-md-left text-center mb-2">Купить</button>
     </form>
   </div>
 </div>
