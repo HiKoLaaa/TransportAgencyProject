@@ -3,13 +3,12 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Route
 import {Observable} from 'rxjs';
 import {FindTripComponent} from '../../core/find-trip/find-trip.component';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PagesCanActivateGuard implements CanActivate {
-  private firstNavigation = true;
+  private firstNavigation;
 
   constructor(private router: Router) {
+    this.firstNavigation = true;
   }
 
   canActivate(

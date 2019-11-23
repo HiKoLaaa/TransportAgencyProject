@@ -7,11 +7,16 @@ import {ResolveTripInfoGuard} from '../guard/resolve-trip-info/resolve-trip-info
 import {PagesCanActivateGuard} from '../guard/can-activate-all-but-main-page/pages-can-activate.guard';
 
 const routes = [
-  {path: 'find', component: FindTripComponent},
+  {
+    path: 'find',
+    component: FindTripComponent,
+    canActivate: [PagesCanActivateGuard]
+  },
   {
     path: 'trips',
     component: TripInfoComponent,
-    resolve: {tripResolve: ResolveTripInfoGuard}
+    resolve: {tripResolve: ResolveTripInfoGuard},
+    canActivate: [PagesCanActivateGuard]
   },
   {path: 'new_order', component: CustomerInfoComponent, canActivate: [PagesCanActivateGuard]},
   {path: 'thanks', component: ThanksMessageComponent, canActivate: [PagesCanActivateGuard]},
