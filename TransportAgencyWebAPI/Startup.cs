@@ -56,7 +56,7 @@ namespace TransportAgencyWebAPI
 						ValidateAudience = true,
 						ValidAudience = AuthOptions.AUDIENCE,
 						ValidateLifetime = true,
-						ClockSkew = TimeSpan.FromMinutes(5)
+						ClockSkew = TimeSpan.FromMinutes(AuthOptions.LIFETIME_MINUTES)
 					};
 				});
 

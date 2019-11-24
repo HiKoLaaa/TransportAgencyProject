@@ -14,7 +14,7 @@ namespace TransportAgencyWebAPI.Models.Authentication
 		// TODO: поменять.
 		public const string AUDIENCE = "http://localhost:43386/";
 		private const string KEY = "The_Most_Secret_Key_You_Devise";
-		public const int LIFETIME = 1;
+		public const int LIFETIME_MINUTES = 35;
 
 		public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
 			new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
