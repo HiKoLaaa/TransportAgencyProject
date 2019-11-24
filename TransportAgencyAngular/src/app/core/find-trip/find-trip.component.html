@@ -2,7 +2,7 @@
   <div class="col-12">
     <form [formGroup]="form" novalidate (ngSubmit)="submitForm()">
       <div *ngIf="submitted && form.invalid" class="row">
-        <div class="col-12 text-white bg-danger p-2 error-text">
+        <div class="col-12 text-white text-md-left text-center bg-danger p-2 error-text">
           <ul class="list-unstyled">
             <li *ngFor="let error of form.getFormErrors()">
               {{error}}

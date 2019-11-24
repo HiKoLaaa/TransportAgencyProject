@@ -39,7 +39,9 @@
       </div>
       <div class="col-12 mb-1">
         <div class="float-right">
-          <button class="float-right btn btn-danger" [routerLink]="['/new_order', {tripId: suitTr.id}]">Купить</button>
+          <button class="float-right btn btn-danger" [disabled]="suitTr.availableTickets < 1"
+                  [routerLink]="['/new_order', {tripId: suitTr.id}]">Купить
+          </button>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
   <div class="col-md-6 col-12">
     <form [formGroup]="form" (ngSubmit)="formSubmit()">
       <div *ngIf="submitted && form.invalid" class="row">
-        <div class="col-12 text-white bg-danger p-2 error-text">
+        <div class="col-12 text-white text-md-left text-center bg-danger p-2 error-text">
           <ul class="list-unstyled">
             <li *ngFor="let error of form.getFormErrors()">
               {{error}}
@@ -16,7 +16,14 @@
           <input class="form-control" [formControlName]="ctrl.name">
         </div>
       </div>
-      <button type="submit" class="btn btn-success text-md-left text-center mb-2">Купить</button>
+      <div class="row">
+        <div class="col-md-6 col-12 text-md-left text-center">
+          <button type="button" class="btn btn-warning mb-2" [routerLink]="['/trips']">Назад</button>
+        </div>
+        <div class="col-md-6 col-12 text-md-right text-center">
+          <button type="submit" class="btn btn-success mb-2">Купить</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>
