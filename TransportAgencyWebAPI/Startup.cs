@@ -11,6 +11,9 @@ using Microsoft.Extensions.Hosting;
 using TransportAgencyWebAPI.Models.DbContext;
 using Microsoft.Extensions.Configuration;
 using TransportAgencyWebAPI.Models.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 
 namespace TransportAgencyWebAPI
 {
@@ -27,9 +30,16 @@ namespace TransportAgencyWebAPI
 		{
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddDbContext<TransportAgencyContext>(opt =>
-				opt.UseSqlServer(_configuration["Database:ConnectionString"]),
-				ServiceLifetime.Scoped);
+				opt.UseSqlServer(_configuration["Database:ApplicationData"]));
 
+			services.AddDbContext<AuthenticationDbContext>(opt =>
+				opt.UseSqlServer(_configuration["Database:Identity"]));
+
+			services.AddIdentity<IdentityUser, IdentityRole>()
+				.AddEntityFrameworkStores<AuthenticationDbContext>()
+				.AddDefaultTokenProviders();
+
+			services.AddAuthentication();
 			services.AddCors();
 			services.AddMvc(opt => opt.EnableEndpointRouting = false);
 		}
@@ -42,6 +52,7 @@ namespace TransportAgencyWebAPI
 				.AllowAnyMethod()
 				.AllowAnyHeader());
 
+			app.UseAuthentication();
 			app.UseMvc();
 		}
 	}
