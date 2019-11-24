@@ -11,9 +11,10 @@ using Microsoft.Extensions.Hosting;
 using TransportAgencyWebAPI.Models.DbContext;
 using Microsoft.Extensions.Configuration;
 using TransportAgencyWebAPI.Models.UnitOfWork;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
+using System.Text;
+using TransportAgencyWebAPI.Models.Authentication;
 
 namespace TransportAgencyWebAPI
 {
@@ -38,6 +39,26 @@ namespace TransportAgencyWebAPI
 			services.AddIdentity<IdentityUser, IdentityRole>()
 				.AddEntityFrameworkStores<AuthenticationDbContext>()
 				.AddDefaultTokenProviders();
+
+			services.AddAuthentication(options =>
+			{
+				options.DefaultAuthenticateScheme = "JwtBearer";
+				options.DefaultChallengeScheme = "JwtBearer";
+				})
+				.AddJwtBearer("JwtBearer", jwtBearerOptions =>
+				{
+					jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+					{
+						ValidateIssuerSigningKey = true,
+						IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+						ValidateIssuer = true,
+						ValidIssuer = AuthOptions.ISSUER,
+						ValidateAudience = true,
+						ValidAudience = AuthOptions.AUDIENCE,
+						ValidateLifetime = true,
+						ClockSkew = TimeSpan.FromMinutes(5)
+					};
+				});
 
 			services.AddAuthentication();
 			services.AddCors();
