@@ -72,6 +72,12 @@ export class FindTripComponent {
     }
   }
 
+  swapPlaces() {
+    const tempPlace = this.form.get('departurePlace').value;
+    this.form.get('departurePlace').setValue(this.form.get('arrivalPlace').value);
+    this.form.get('arrivalPlace').setValue(tempPlace);
+  }
+
   submitForm() {
     this.submitted = true;
     if (this.form.valid) {

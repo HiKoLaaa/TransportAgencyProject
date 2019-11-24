@@ -32,14 +32,11 @@ export class CustomerInfoComponent {
     if (this.form.valid) {
       this.updateCustomerInfo();
       this.customerRepository.addCustomer(this.customer).subscribe();
-
-      // TODO: сделать нормальную логику доступных и проданных билетов.
       this.chosenTrip.availableTickets--;
       this.chosenTrip.saleTickets++;
       this.tripRepository.editTrip(this.chosenTrip).subscribe();
+      this.router.navigateByUrl('thanks');
     }
-
-    this.router.navigateByUrl('thanks');
   }
 
   updateCustomerInfo() {
