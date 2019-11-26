@@ -32,9 +32,6 @@ export class CustomerInfoComponent {
     if (this.form.valid) {
       this.updateCustomerInfo();
       this.customerRepository.addCustomer(this.customer).subscribe();
-      this.chosenTrip.availableTickets--;
-      this.chosenTrip.saleTickets++;
-      this.tripRepository.editTrip(this.chosenTrip).subscribe();
       this.router.navigateByUrl('thanks');
     }
   }

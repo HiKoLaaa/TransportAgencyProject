@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TransportAgencyWebAPI.Models.DbModels;
 using TransportAgencyWebAPI.Models.UnitOfWork;
@@ -27,6 +28,7 @@ namespace TransportAgencyWebAPI.Controllers
 		public Trip Get(Guid id) => _unitOfWork.TripRepository.GetOne(id);
 
 		[HttpPost]
+		[Authorize(Roles = "Admin")]
 		public void Post([FromBody]Trip trip)
 		{
 			_unitOfWork.TripRepository.AddItem(trip);
@@ -34,6 +36,7 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpPut]
+		[Authorize(Roles = "Admin")]
 		public void Put([FromBody]Trip trip)
 		{
 			_unitOfWork.TripRepository.EditItem(trip);
@@ -41,6 +44,7 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "Admin")]
 		public void Delete(Guid id)
 		{
 			_unitOfWork.TripRepository.DeleteItem(id);

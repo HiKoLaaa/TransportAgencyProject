@@ -29,7 +29,7 @@ namespace TransportAgencyWebAPI.Controllers
 		[Route("login")]
 		[AllowAnonymous]
 		[HttpPost]
-		public async Task<IActionResult> Login(string userName, string password)
+		public async Task<JsonResult> Login(string userName, string password)
 		{
 			// TODO: поменять вход (email or login).
 			var user = await _userManager.FindByNameAsync(userName);
@@ -41,10 +41,10 @@ namespace TransportAgencyWebAPI.Controllers
 
 			if (result)
 			{
-				return Ok(GenerateToken(user));
+				return Json(Ok(GenerateToken(user)));
 			}
 
-			return BadRequest();
+			return Json(BadRequest());
 		}
 
 		// TODO: сделать регистрацию новых пользователей.

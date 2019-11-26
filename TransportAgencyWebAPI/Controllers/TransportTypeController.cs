@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using TransportAgencyWebAPI.Models.DbModels;
@@ -23,6 +24,7 @@ namespace TransportAgencyWebAPI.Controllers
 		public TransportType Get(Guid id) => _unitOfWork.TransportTypeRepository.GetOne(id);
 
 		[HttpPost]
+		[Authorize(Roles = "Admin")]
 		public void Post([FromBody]TransportType transportType)
 		{
 			_unitOfWork.TransportTypeRepository.AddItem(transportType);
@@ -30,6 +32,7 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpPut]
+		[Authorize(Roles = "Admin")]
 		public void Put([FromBody]TransportType transportType)
 		{
 			_unitOfWork.TransportTypeRepository.EditItem(transportType);
@@ -37,6 +40,7 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "Admin")]
 		public void Delete(Guid id)
 		{
 			_unitOfWork.TransportTypeRepository.DeleteItem(id);
