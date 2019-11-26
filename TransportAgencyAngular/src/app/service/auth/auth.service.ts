@@ -1,7 +1,8 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {MAIN_PART_URL} from '../../model/repository/url.model';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Inject, Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {LOG_IN} from './auth.log-in';
 
 const AUTH_URL = 'auth';
 
@@ -10,7 +11,10 @@ export class AuthService {
   private JWT = 'JW_Token';
   private LOGIN = 'LOGIN';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              @Inject(LOG_IN) private isLoggedIn: BehaviorSubject<boolean>) {
+    isLoggedIn.next(!!this.jwToken);
+  }
 
   login(log: string, userPassword: string): Observable<boolean> {
     const paramets = new HttpParams({
@@ -27,8 +31,10 @@ export class AuthService {
             this.storeJwToken(token['value']);
             this.storeLoginName(log);
             x.next(true);
+            this.isLoggedIn.next(true);
           } else {
             x.next(false);
+            this.isLoggedIn.next(false);
           }
           x.complete();
         });
@@ -38,6 +44,7 @@ export class AuthService {
   logout() {
     this.removeJwToken();
     this.removeLoginName();
+    this.isLoggedIn.next(false);
   }
 
   get jwToken(): string {
