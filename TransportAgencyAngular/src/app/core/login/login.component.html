@@ -1,0 +1,14 @@
+<div *ngIf="submit && isSuccessLogIn === false" class="bg-white rounded text-center text-danger p-2">
+  Неправильный логин или пароль
+</div>
+<div *ngIf="form.invalid && submit" class="bg-white rounded text-center text-danger p-2">
+  Введите логин и пароль
+</div>
+<div *ngIf="isSuccessLogIn" class="text-white">Вы успешно вошли как {{auth.loginName}}</div>
+<form *ngIf="!isSuccessLogIn" [formGroup]="form">
+  <div *ngFor="let ctrl of form.AllControls" class="text-md-left text-center">
+    <label class="text-white">{{ctrl.label}}</label>
+    <input class="form-control" [type]="ctrl.name === 'password' ? 'password' : 'text'" [formControlName]="ctrl.name">
+  </div>
+</form>
+<button class="btn btn-success m-1" (click)="authenticate()" [disabled]="submit && form.invalid">{{isSuccessLogIn ? 'Выйти' : 'Войти'}}</button>

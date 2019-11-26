@@ -7,6 +7,9 @@ import {ModelModule} from './model/model.module';
 import {CoreModule} from './core/core.module';
 import {routing} from './routes/routes.routing';
 import {GuardModule} from './guard/guard.module';
+import {ServiceModule} from './service/service.module';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {TokenInterceptor} from './interceptor/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -18,9 +21,16 @@ import {GuardModule} from './guard/guard.module';
     ModelModule,
     CoreModule,
     routing,
-    GuardModule
+    GuardModule,
+    ServiceModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
