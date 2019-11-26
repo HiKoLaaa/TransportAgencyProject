@@ -12,11 +12,12 @@ import {DirectiveModule} from './directives/directive.module';
 import {FIND_INFO, FindTripInfoClientViewModel} from '../view-model/find-trip-info.client.view-model';
 import {CustomerInfoComponent} from './customer-info/customer-info.component';
 import {ThanksMessageComponent} from './thanks-message/thanks-message.component';
-import { LoginComponent } from './login/login.component';
+import {LoginComponent} from './login/login.component';
 
 @NgModule({
   imports: [BrowserModule, RouterModule, FormsModule, ReactiveFormsModule, AutocompleteLibModule, DirectiveModule],
-  declarations: [HeaderComponent, FooterComponent, FindTripComponent, TripInfoComponent, CustomerInfoComponent, ThanksMessageComponent, LoginComponent],
+  declarations: [HeaderComponent, FooterComponent, FindTripComponent,
+    TripInfoComponent, CustomerInfoComponent, ThanksMessageComponent, LoginComponent],
   providers: [
     {
       provide: FIND_INFO, useValue: new BehaviorSubject<FindTripInfoClientViewModel>(new FindTripInfoClientViewModel())
