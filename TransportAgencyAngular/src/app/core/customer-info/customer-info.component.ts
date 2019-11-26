@@ -5,6 +5,7 @@ import {Customer} from '../../model/dbModel/customer.model';
 import {Trip} from '../../model/dbModel/trip.model';
 import {TripRepository} from '../../model/repository/tripRepository.model';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-customer-info',
@@ -16,11 +17,13 @@ export class CustomerInfoComponent {
   customer: Customer;
   chosenTrip: Trip;
   submitted: boolean;
+  mustLogIn: boolean;
 
   constructor(private customerRepository: CustomerRepository,
               private tripRepository: TripRepository,
               private routeInfo: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private auth: AuthService) {
     this.form = new CustomerInfoFormGroup();
     this.tripRepository.getTrip(routeInfo.snapshot.params['tripId']).subscribe(trip => {
       this.chosenTrip = trip;
@@ -29,7 +32,8 @@ export class CustomerInfoComponent {
 
   formSubmit() {
     this.submitted = true;
-    if (this.form.valid) {
+    this.mustLogIn = !this.auth.jwToken;
+    if (this.form.valid && !this.mustLogIn) {
       this.updateCustomerInfo();
       this.customerRepository.addCustomer(this.customer).subscribe();
       this.router.navigateByUrl('thanks');

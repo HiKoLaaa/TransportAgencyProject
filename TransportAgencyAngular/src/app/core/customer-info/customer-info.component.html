@@ -1,5 +1,10 @@
 <div class="row justify-content-center mt-5">
   <div class="col-md-6 col-12">
+    <div class="row">
+      <div *ngIf="mustLogIn" class="col-12 m-0 text-white bg-danger">
+        Пожалуйста, войдите в личный кабинет
+      </div>
+    </div>
     <form [formGroup]="form" (ngSubmit)="formSubmit()">
       <div *ngIf="submitted && form.invalid" class="row">
         <div class="col-12 text-white text-md-left text-center bg-danger p-2 error-text">
