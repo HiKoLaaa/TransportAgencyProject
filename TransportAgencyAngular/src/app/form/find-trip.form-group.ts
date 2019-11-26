@@ -1,7 +1,8 @@
-import {FormGroup, Validators} from '@angular/forms';
+import {Validators} from '@angular/forms';
 import {CustomFormControl} from './custom.form-control';
+import {BaseFormGroup} from './base.form-group';
 
-export class FindTripFormGroup extends FormGroup {
+export class FindTripFormGroup extends BaseFormGroup {
   constructor() {
     super({
       departurePlace: new CustomFormControl('',
@@ -19,18 +20,5 @@ export class FindTripFormGroup extends FormGroup {
       kindTransport: new CustomFormControl('',
         'kindTransport', 'Вид транспорта', null)
     });
-  }
-
-  get tripAllControls(): CustomFormControl[] {
-    return Object.keys(this.controls)
-      .map(k => this.controls[k] as CustomFormControl);
-  }
-
-  getFormErrors(): string[] {
-    const messages: string[] = [];
-    this.tripAllControls.forEach(c => c.getErrors()
-      .forEach(m => messages.push(m)));
-
-    return messages;
   }
 }

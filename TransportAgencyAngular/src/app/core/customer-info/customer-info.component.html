@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 form-group" *ngFor="let ctrl of form.customerAllControls">
+        <div class="col-12 form-group" *ngFor="let ctrl of form.AllControls">
           <label>{{ctrl.label}}</label>
           <input class="form-control" [formControlName]="ctrl.name">
         </div>

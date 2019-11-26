@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="row justify-content-md-between justify-content-center text-center">
-        <div *ngFor="let ctrl of form.tripAllControls" class="col-md-6 col-12 form-group">
+        <div *ngFor="let ctrl of form.AllControls" class="col-md-6 col-12 form-group">
           <label *ngIf="ctrl.name!=='kindTransport'" class="font-size-70">{{ctrl.label}}</label>
           <div *ngIf="ctrl.name==='departurePlace' || ctrl.name==='arrivalPlace'" class="ng-autocomplete col-12">
             <ng-autocomplete
