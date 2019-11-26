@@ -31,8 +31,8 @@ namespace TransportAgencyWebAPI.Controllers
 		{
 			customer.Trip.SaleTickets++;
 			customer.Trip.AvailableTickets--;
-			_unitOfWork.CustomerRepository.AddItem(customer);
 			_unitOfWork.TripRepository.EditItem(customer.Trip);
+			_unitOfWork.CustomerRepository.AddItem(customer);
 			_unitOfWork.SaveChanges();
 		}
 
