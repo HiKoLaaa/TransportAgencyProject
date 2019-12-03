@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using System.Text;
 using TransportAgencyWebAPI.Models.Authentication;
+using TransportAgencyWebAPI.Models.Repository;
 
 namespace TransportAgencyWebAPI
 {
@@ -30,13 +31,19 @@ namespace TransportAgencyWebAPI
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
+			services.AddTransient<IUserRepositoryAsync<IdentityUser>, AccountRepository>();
 			services.AddDbContext<TransportAgencyContext>(opt =>
 				opt.UseSqlServer(_configuration["Database:ApplicationData"]));
 
 			services.AddDbContext<AuthenticationDbContext>(opt =>
 				opt.UseSqlServer(_configuration["Database:Identity"]));
 
-			services.AddIdentity<IdentityUser, IdentityRole>()
+			services.AddIdentity<IdentityUser, IdentityRole>(opts =>
+			{
+				opts.User.RequireUniqueEmail = true;
+				opts.Password.RequiredUniqueChars = 0;
+				opts.Password.RequireNonAlphanumeric = false;
+			})
 				.AddEntityFrameworkStores<AuthenticationDbContext>()
 				.AddDefaultTokenProviders();
 

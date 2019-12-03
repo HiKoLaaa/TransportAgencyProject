@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using TransportAgencyWebAPI.Models.Authentication;
+using TransportAgencyWebAPI.Models.Repository;
 
 namespace TransportAgencyWebAPI.Controllers
 {
@@ -19,35 +20,47 @@ namespace TransportAgencyWebAPI.Controllers
 	[Authorize]
 	public class AuthController : Controller
 	{
+		private IUserRepositoryAsync<IdentityUser> _userRepository;
 		private UserManager<IdentityUser> _userManager;
 
-		public AuthController(UserManager<IdentityUser> userManager)
+		public AuthController(IUserRepositoryAsync<IdentityUser> userRepository,
+			UserManager<IdentityUser> userManager)
 		{
+			_userRepository = userRepository;
 			_userManager = userManager;
+		}
+
+		[HttpPost]
+		[Route("registration")]
+		[AllowAnonymous]
+		public async Task<JsonResult> Registration(string userName, string userEmail, string password)
+		{
+			var newUser = new IdentityUser(userName);
+			newUser.Email = userEmail;
+			var result = await _userRepository.AddUser(newUser, password);
+			if (result)
+			{
+				return Json(Ok());
+			}
+			else
+			{
+				return Json(BadRequest());
+			}
 		}
 
 		[Route("login")]
 		[AllowAnonymous]
 		[HttpPost]
-		public async Task<JsonResult> Login(string userName, string password)
+		public async Task<JsonResult> Login(string userEmail, string password)
 		{
-			// TODO: поменять вход (email or login).
-			var user = await _userManager.FindByNameAsync(userName);
-			bool result = false;
-			if (user != null)
+			var resultUser = await _userRepository.Login(userEmail, password);
+			if (resultUser != null)
 			{
-				result = await _userManager.CheckPasswordAsync(user, password);
-			}
-
-			if (result)
-			{
-				return Json(Ok(GenerateToken(user)));
+				return Json(Ok(GenerateToken(resultUser)));
 			}
 
 			return Json(BadRequest());
 		}
-
-		// TODO: сделать регистрацию новых пользователей.
 
 		private string GenerateToken(IdentityUser user)
 		{
