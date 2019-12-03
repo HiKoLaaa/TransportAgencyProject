@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {FindTripComponent} from '../../core/find-trip/find-trip.component';
 
 @Injectable()
-export class PagesCanActivateGuard implements CanActivate {
+export class CanActivateOnlyMainPageGuard implements CanActivate {
   private firstNavigation;
 
   constructor(private router: Router) {

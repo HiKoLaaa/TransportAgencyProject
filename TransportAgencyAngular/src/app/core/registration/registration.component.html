@@ -1,0 +1,35 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6 col-12">
+    <div class="row">
+      <div class="col-12 text-center">
+        Регистрация
+      </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="formSubmit()">
+      <div *ngIf="submitted && form.invalid" class="row">
+        <div class="col-12 text-white text-md-left text-center bg-danger p-2 error-text">
+          <ul class="list-unstyled">
+            <li *ngFor="let error of form.getFormErrors()">
+              {{error}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 form-group" *ngFor="let ctrl of form.AllControls">
+          <label>{{ctrl.label}}</label>
+          <input [type]="ctrl.name === 'password' || ctrl.name ==='confirmPassword' ? 'password' : 'text'"
+                 class="form-control" [formControlName]="ctrl.name">
+        </div>
+      </div>
+      <div class="row justify-content-between">
+        <div class="col-md-3 col-12 text-md-left text-center order-md-0 order-1">
+          <button type="button" class="btn btn-warning mb-2" [routerLink]="backLink">Назад</button>
+        </div>
+        <div class="col-md-9 col-12 text-md-right text-center order-md-1 order-0">
+          <button type="submit" class="btn btn-success mb-2">Зарегистрироваться</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

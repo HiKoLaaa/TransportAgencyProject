@@ -19,7 +19,7 @@ export class AuthService {
   login(log: string, userPassword: string): Observable<boolean> {
     const paramets = new HttpParams({
       fromObject: {
-        userName: log,
+        userEmail: log,
         password: userPassword
       }
     });

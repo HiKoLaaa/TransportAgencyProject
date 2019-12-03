@@ -1,8 +1,6 @@
-import {Component, Inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from '../../service/auth/auth.service';
 import {LoginInfoFormGroup} from '../../form/login-info.form-group';
-import {LOG_IN} from '../../service/auth/auth.log-in';
-import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -53,4 +51,3 @@ export class LoginComponent {
     this.submit = false;
   }
 }
-
