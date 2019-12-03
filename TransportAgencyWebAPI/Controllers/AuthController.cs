@@ -48,6 +48,22 @@ namespace TransportAgencyWebAPI.Controllers
 			}
 		}
 
+		[Route("check_email")]
+		[AllowAnonymous]
+		[HttpGet]
+		public async Task<JsonResult> CheckEmail(string email)
+		{
+			var result = await _userRepository.CheckAvailableEmail(email);
+			if (result)
+			{
+				return Json(Ok());
+			}
+			else
+			{
+				return Json(BadRequest());
+			}
+		}
+
 		[Route("login")]
 		[AllowAnonymous]
 		[HttpPost]
