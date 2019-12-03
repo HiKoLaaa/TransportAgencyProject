@@ -23,6 +23,25 @@ export class AccountRepository {
     });
   }
 
+  checkEmail(userEmail: string): Observable<boolean> {
+    const parameters = new HttpParams({
+      fromObject: {
+        email: userEmail
+      }
+    });
+
+    return new Observable<boolean>(x => {
+      this.http.get(`${MAIN_PART_URL}/${AUTH_URL}/check_email`, {params: parameters})
+        .subscribe(res => {
+          if (res['statusCode'] === 200) {
+            x.next(true);
+          } else {
+            x.next(false);
+          }
+        });
+    });
+  }
+
   private prepareInfo(name: string, log: string, userPassword: string): HttpParams {
     return new HttpParams({
       fromObject: {
