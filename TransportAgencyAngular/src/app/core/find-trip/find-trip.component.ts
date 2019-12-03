@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {FindTripFormGroup} from '../../form/find-trip.form-group';
+import {FindTripFormGroup} from '../../form/find-trip/find-trip.form-group';
 import {TransportType} from '../../model/dbModel/transportType.model';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';

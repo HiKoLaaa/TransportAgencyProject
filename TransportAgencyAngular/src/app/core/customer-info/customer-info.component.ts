@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {CustomerInfoFormGroup} from '../../form/customer-info.form-group';
+import {CustomerInfoFormGroup} from '../../form/customer/customer-info.form-group';
 import {CustomerRepository} from '../../model/repository/customerRepository';
 import {Customer} from '../../model/dbModel/customer.model';
 import {Trip} from '../../model/dbModel/trip.model';

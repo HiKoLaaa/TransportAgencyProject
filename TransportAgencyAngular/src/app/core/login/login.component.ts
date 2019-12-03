@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthService} from '../../service/auth/auth.service';
-import {LoginInfoFormGroup} from '../../form/login-info.form-group';
+import {LoginInfoFormGroup} from '../../form/login/login-info.form-group';
 
 @Component({
   selector: 'app-login',
