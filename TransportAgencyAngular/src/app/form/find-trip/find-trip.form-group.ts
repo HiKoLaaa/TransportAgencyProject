@@ -1,23 +1,23 @@
 import {Validators} from '@angular/forms';
-import {CustomFormControl} from './custom.form-control';
-import {BaseFormGroup} from './base.form-group';
+import {BaseFormGroup} from '../base.form-group';
+import {FindTripFormControl} from './find-trip.form-control';
 
 export class FindTripFormGroup extends BaseFormGroup {
   constructor() {
     super({
-      departurePlace: new CustomFormControl('',
+      departurePlace: new FindTripFormControl('',
         'departurePlace', 'Место отправления', Validators.required),
 
-      departureDate: new CustomFormControl('',
+      departureDate: new FindTripFormControl('',
         'departureDate', 'Дата отправления', Validators.required),
 
-      arrivalPlace: new CustomFormControl('',
+      arrivalPlace: new FindTripFormControl('',
         'arrivalPlace', 'Место прибытия', Validators.required),
 
-      arrivalDate: new CustomFormControl('',
+      arrivalDate: new FindTripFormControl('',
         'arrivalDate', 'Дата прибытия', null),
 
-      kindTransport: new CustomFormControl('',
+      kindTransport: new FindTripFormControl('',
         'kindTransport', 'Вид транспорта', null)
     });
   }

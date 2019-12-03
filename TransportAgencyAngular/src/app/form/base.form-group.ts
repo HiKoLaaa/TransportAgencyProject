@@ -1,14 +1,14 @@
 import {FormGroup} from '@angular/forms';
-import {CustomFormControl} from './custom.form-control';
+import {CustomBaseFormControl} from './custom-base.form-control';
 
 export class BaseFormGroup extends FormGroup {
   constructor(props) {
     super(props);
   }
 
-  get AllControls(): CustomFormControl[] {
+  get AllControls(): CustomBaseFormControl[] {
     return Object.keys(this.controls)
-      .map(k => this.controls[k] as CustomFormControl);
+      .map(k => this.controls[k] as CustomBaseFormControl);
   }
 
   getFormErrors(): string[] {
