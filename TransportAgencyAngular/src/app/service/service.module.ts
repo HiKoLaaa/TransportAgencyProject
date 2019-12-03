@@ -7,9 +7,9 @@ import {BehaviorSubject} from 'rxjs';
 @NgModule({
   imports: [HttpClientModule],
   providers: [AuthService,
-      {
-        provide: LOG_IN, useValue: new BehaviorSubject<boolean>(false)
-      }
-    ]
+    {
+      provide: LOG_IN, useValue: new BehaviorSubject<boolean>(false)
+    }
+  ]
 })
 export class ServiceModule { }

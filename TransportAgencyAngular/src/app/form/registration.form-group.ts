@@ -6,7 +6,7 @@ import {ConfirmPasswordValidator} from '../validator/confirm-password.validator'
 export class RegistrationFormGroup extends BaseFormGroup {
   constructor() {
     super({
-      login: new CustomFormControl('', 'login', 'Логин', Validators.required),
+      login: new CustomFormControl('', 'login', 'Имя пользователя', Validators.required),
       email: new CustomFormControl('', 'email', 'Почтовый ящик', [Validators.required,
         Validators.email]),
 

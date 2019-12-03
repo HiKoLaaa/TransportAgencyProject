@@ -4,6 +4,14 @@
       <div class="col-12 text-center">
         Регистрация
       </div>
+      <div *ngIf="success" class="col-12 text-center bg-success text-white">
+        Регистрация прошла успешно
+        <br>
+        Вы будете перенаправлены на главную страницу через {{secondsToRedirect}} секунд
+      </div>
+      <div *ngIf="!success && success !== undefined" class="col-12 text-center bg-warning text-white">
+        Возникли ошибки во время регистрации, повторите попытку позже
+      </div>
     </div>
     <form [formGroup]="form" (ngSubmit)="formSubmit()">
       <div *ngIf="submitted && form.invalid" class="row">
