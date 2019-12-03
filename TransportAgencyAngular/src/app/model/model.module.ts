@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {PlaceRepository} from './repository/placeRepository.model';
 import {TripRepository} from './repository/tripRepository.model';
 import {CustomerRepository} from './repository/customerRepository';
+import {AccountRepository} from './repository/accountRepository.model';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import {CustomerRepository} from './repository/customerRepository';
     TransportTypeRepository,
     PlaceRepository,
     TripRepository,
-    CustomerRepository
+    CustomerRepository,
+    AccountRepository
   ]
 })
 export class ModelModule { }
