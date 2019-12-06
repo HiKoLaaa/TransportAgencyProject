@@ -16,19 +16,19 @@ namespace TransportAgencyWebAPI.Models.Repository
 			_userManager = userManager;
 		}
 
-		public async Task<bool> AddUser(IdentityUser user, string password)
+		public async Task<bool> AddUserAsync(IdentityUser user, string password)
 		{
 			var result = await _userManager.CreateAsync(user, password);
 			return result.Succeeded;
 		}
 
-		public async Task<bool> UpdateUser(IdentityUser user)
+		public async Task<bool> UpdateUserAsync(IdentityUser user)
 		{
 			var result = await _userManager.UpdateAsync(user);
 			return result.Succeeded;
 		}
 
-		public async Task<bool> DeleteUser(string email)
+		public async Task<bool> DeleteUserAsync(string email)
 		{
 			var user = await _userManager.FindByEmailAsync(email);
 			var result = await _userManager.DeleteAsync(user);
