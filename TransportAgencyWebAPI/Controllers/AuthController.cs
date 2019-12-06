@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using TransportAgencyWebAPI.Helpers;
 using TransportAgencyWebAPI.Models.Authentication;
 using TransportAgencyWebAPI.Models.Repository;
 
@@ -37,24 +38,8 @@ namespace TransportAgencyWebAPI.Controllers
 		{
 			var newUser = new IdentityUser(userName);
 			newUser.Email = userEmail;
-			var result = await _userRepository.AddUser(newUser, password);
+			var result = await _userRepository.AddUserAsync(newUser, password);
 			if (result)
-			{
-				return Json(Ok());
-			}
-			else
-			{
-				return Json(BadRequest());
-			}
-		}
-
-		[Route("check_email")]
-		[AllowAnonymous]
-		[HttpGet]
-		public async Task<JsonResult> CheckEmail(string email)
-		{
-			var result = await _userManager.FindByEmailAsync(email);
-			if (result != null)
 			{
 				return Json(Ok());
 			}
@@ -103,11 +88,11 @@ namespace TransportAgencyWebAPI.Controllers
 
 		private async Task<ClaimsIdentity> GetIdentity(IdentityUser user)
 		{
-			var admin = await _userManager.IsInRoleAsync(user, "Admin");
+			var admin = await _userManager.IsInRoleAsync(user, RoleNamesHelper.ADMIN_ROLE);
 			var claims = new List<Claim>
 			{
 				new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
-				new Claim(ClaimsIdentity.DefaultRoleClaimType, admin ? "Admin" : "User")
+				new Claim(ClaimsIdentity.DefaultRoleClaimType, admin ? RoleNamesHelper.ADMIN_ROLE : RoleNamesHelper.USER_ROLE)
 			};
 
 			ClaimsIdentity claimsIdentity =
