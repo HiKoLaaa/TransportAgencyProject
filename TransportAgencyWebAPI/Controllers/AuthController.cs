@@ -36,17 +36,19 @@ namespace TransportAgencyWebAPI.Controllers
 		[AllowAnonymous]
 		public async Task<JsonResult> Registration(string userName, string userEmail, string password)
 		{
-			var newUser = new IdentityUser(userName);
-			newUser.Email = userEmail;
+			var newUser = new IdentityUser(userName)
+			{
+				Email = userEmail
+			};
+
 			var result = await _userRepository.AddUserAsync(newUser, password);
-			if (result)
+			var identityResult = await _userManager.AddToRoleAsync(newUser, RoleNamesHelper.USER_ROLE);
+			if (result && identityResult.Succeeded)
 			{
 				return Json(Ok());
 			}
-			else
-			{
-				return Json(BadRequest());
-			}
+
+			return Json(BadRequest());
 		}
 
 		[Route("login")]

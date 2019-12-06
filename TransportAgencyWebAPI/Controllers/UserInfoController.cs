@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TransportAgencyWebAPI.Helpers;
 
@@ -22,20 +23,20 @@ namespace TransportAgencyWebAPI.Controllers
 
 		[HttpGet]
 		[Route("role")]
-		public async Task<string> GetRole()
+		public JsonResult GetRole()
 		{
-			var user = await _userManager.GetUserAsync(HttpContext.User);
-			var isAdmin = await _userManager.IsInRoleAsync(user, RoleNamesHelper.ADMIN_ROLE);
-			return isAdmin ? RoleNamesHelper.ADMIN_ROLE : RoleNamesHelper.USER_ROLE;
+			var userRole = User.FindAll(ClaimTypes.Role);
+			var isAdmin = userRole.Where(cl => cl?.Value == RoleNamesHelper.ADMIN_ROLE).FirstOrDefault();
+			return isAdmin != null ? Json(RoleNamesHelper.ADMIN_ROLE) : Json(RoleNamesHelper.USER_ROLE);
 		}
 
 		[Route("check_email")]
 		[AllowAnonymous]
 		[HttpGet]
-		public async Task<bool> CheckFreeEmail(string email)
+		public async Task<JsonResult> CheckFreeEmail(string email)
 		{
 			var result = await _userManager.FindByEmailAsync(email);
-			return result != null;
+			return Json(result == null);
 		}
 	}
 }
