@@ -31,7 +31,7 @@ namespace TransportAgencyWebAPI
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
-			services.AddTransient<IUserRepositoryAsync<IdentityUser>, AccountRepository>();
+			services.AddTransient<IUserRepositoryAsync<IdentityUser>, UserRepository>();
 			services.AddDbContext<TransportAgencyContext>(opt =>
 				opt.UseSqlServer(_configuration["Database:ApplicationData"]));
 

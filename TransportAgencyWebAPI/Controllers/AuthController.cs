@@ -53,8 +53,8 @@ namespace TransportAgencyWebAPI.Controllers
 		[HttpGet]
 		public async Task<JsonResult> CheckEmail(string email)
 		{
-			var result = await _userRepository.CheckAvailableEmail(email);
-			if (result)
+			var result = await _userManager.FindByEmailAsync(email);
+			if (result != null)
 			{
 				return Json(Ok());
 			}
@@ -69,13 +69,21 @@ namespace TransportAgencyWebAPI.Controllers
 		[HttpPost]
 		public async Task<JsonResult> Login(string userEmail, string password)
 		{
-			var resultUser = await _userRepository.Login(userEmail, password);
-			if (resultUser != null)
+			var user = await _userManager.FindByEmailAsync(userEmail);
+			bool result = false;
+			if (user != null)
 			{
-				return Json(Ok(GenerateToken(resultUser)));
+				result = await _userManager.CheckPasswordAsync(user, password);
 			}
 
-			return Json(BadRequest());
+			if (result)
+			{
+				return Json(Ok(GenerateToken(user)));
+			}
+			else
+			{
+				return Json(BadRequest());
+			}
 		}
 
 		private string GenerateToken(IdentityUser user)
@@ -107,6 +115,14 @@ namespace TransportAgencyWebAPI.Controllers
 					ClaimsIdentity.DefaultRoleClaimType);
 
 			return claimsIdentity;
+		}
+
+
+		// TODO: сделать возможность смену пароля.
+		public async Task<bool> ChangePassword(IdentityUser user, string oldPassword, string newPassword)
+		{
+			var result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+			return result.Succeeded;
 		}
 	}
 }
