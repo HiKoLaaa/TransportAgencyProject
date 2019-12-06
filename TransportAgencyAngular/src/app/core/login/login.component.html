@@ -19,4 +19,7 @@
     <button class="btn btn-success m-1" (click)="authenticate()"
             [disabled]="submit && form.invalid">{{isSuccessLogIn ? 'Выйти' : 'Войти'}}</button>
   </div>
+  <div *ngIf="admin" class="col-12 mb-2">
+    <button class="btn btn-warning">Панель администратора</button>
+  </div>
 </div>
