@@ -32,17 +32,10 @@ namespace TransportAgencyWebAPI.Controllers
 		[Route("check_email")]
 		[AllowAnonymous]
 		[HttpGet]
-		public async Task<JsonResult> CheckEmail(string email)
+		public async Task<bool> CheckFreeEmail(string email)
 		{
 			var result = await _userManager.FindByEmailAsync(email);
-			if (result != null)
-			{
-				return Json(Ok());
-			}
-			else
-			{
-				return Json(BadRequest());
-			}
+			return result != null;
 		}
 	}
 }

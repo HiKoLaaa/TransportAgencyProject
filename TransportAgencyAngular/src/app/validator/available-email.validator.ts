@@ -9,10 +9,8 @@ export class AvailableEmailValidator {
   emailUniqueValidate() {
     return (c: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
       return new Observable<ValidationErrors>(x => {
-        let find = false;
         this.userRepository.checkEmail(c.value).subscribe(res => {
-          find = res;
-          find ? x.next(null) : x.next({matchEmail: true});
+          res ? x.next(null) : x.next({matchEmail: true});
           x.complete();
         });
         }
