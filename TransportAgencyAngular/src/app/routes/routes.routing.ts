@@ -26,7 +26,12 @@ const routes = [
   },
   {path: 'new_order', component: CustomerInfoComponent, canActivate: [CanActivateOnlyMainPageGuard]},
   {path: 'thanks', component: ThanksMessageComponent, canActivate: [CanActivateOnlyMainPageGuard]},
-  {path: '', redirectTo: '/find', pathMatch: 'full'}
+  {path: '', redirectTo: '/find', pathMatch: 'full'},
+  {
+    path: 'admin_panel',
+    loadChildren: '../app/admin/admin.module#AdminModule',
+    canActivate: [CanActivateOnlyMainPageGuard]
+  }
 ];
 
 export const routing = RouterModule.forRoot(routes);
