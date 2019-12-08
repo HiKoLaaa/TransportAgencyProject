@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-admin-main-page',
@@ -6,9 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-main-page.component.scss']
 })
 export class AdminMainPageComponent {
-  administratingEntities: string[];
+  administratingEntities: string[][];
 
-  constructor() {
-    this.administratingEntities = ['Рейсы', 'Типы транспорта', 'Места', 'Страны', 'Покупатели'];
+  constructor(private location: Location) {
+    this.administratingEntities = [
+      ['Рейсы', 'trips'],
+      ['Типы транспорта', 'transportTypes'],
+      ['Места', 'places'],
+      ['Страны', 'countries'],
+      ['Покупатели', 'customers']
+    ];
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
