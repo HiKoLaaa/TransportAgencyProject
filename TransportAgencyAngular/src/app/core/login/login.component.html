@@ -11,11 +11,11 @@
     <input class="form-control" [type]="ctrl.name === 'password' ? 'password' : 'text'" [formControlName]="ctrl.name">
   </div>
 </form>
-<div class="row justify-content-between">
-  <div class="col-6">
-    <button *ngIf="!isSuccessLogIn" [routerLink]="'/registration'" class="btn btn-success m-1">Регистрация</button>
+<div class="row justify-contend-end">
+  <div *ngIf="!isSuccessLogIn" [routerLink]="'/registration'" class="col-6">
+    <button class="btn btn-success m-1">Регистрация</button>
   </div>
-  <div class="col-6">
+  <div [class.col-md-6]="!isSuccessLogIn" class="col-12 text-md-right text-center">
     <button class="btn btn-success m-1" (click)="authenticate()"
             [disabled]="submit && form.invalid">{{isSuccessLogIn ? 'Выйти' : 'Войти'}}</button>
   </div>

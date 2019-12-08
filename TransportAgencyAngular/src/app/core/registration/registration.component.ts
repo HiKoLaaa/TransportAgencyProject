@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {RegistrationFormGroup} from '../../form/registration/registration.form-group';
 import {Router} from '@angular/router';
 import {AccountRepository} from '../../model/repository/accountRepository.model';
-import {AvailablePlaceValidator} from '../../validator/available-place.validator';
 import {AvailableEmailValidator} from '../../validator/available-email.validator';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-registration',
@@ -12,15 +12,14 @@ import {AvailableEmailValidator} from '../../validator/available-email.validator
 })
 export class RegistrationComponent {
   form: RegistrationFormGroup;
-  backLink: string;
   secondsToRedirect: number;
   success: boolean;
   submitted: boolean;
 
   constructor(private router: Router,
-              private userRepository: AccountRepository) {
+              private userRepository: AccountRepository,
+              private location: Location) {
     this.form = new RegistrationFormGroup();
-    this.backLink = '/find';
     this.secondsToRedirect = 5;
     const validator = new AvailableEmailValidator(userRepository);
     this.form.get('email').setAsyncValidators([
@@ -44,12 +43,16 @@ export class RegistrationComponent {
                 this.secondsToRedirect--;
                 if (this.secondsToRedirect <= 0) {
                   clearInterval(interval);
-                  this.router.navigateByUrl(this.backLink);
+                  this.location.back();
                 }
               }, 1000);
             }
           }
       );
     }
+  }
+
+  goBack() {
+   this.location.back();
   }
 }
