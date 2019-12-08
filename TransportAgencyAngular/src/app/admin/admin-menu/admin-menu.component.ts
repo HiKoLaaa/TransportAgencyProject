@@ -18,8 +18,4 @@ export class AdminMenuComponent {
       ['Покупатели', 'customers']
     ];
   }
-
-  goBack() {
-    this.location.back();
-  }
 }

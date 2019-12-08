@@ -51,8 +51,4 @@ export class RegistrationComponent {
       );
     }
   }
-
-  goBack() {
-   this.location.back();
-  }
 }
