@@ -1,17 +1,10 @@
-<div class="row justify-content-center m-1">
-  <div class="col-md-7 col-12">
-    <div class="row text-center">
-      <div class="col-12 h3 mt-15">Администрирование</div>
-    </div>
-    <div class="row text-center bg-secondary mt-15">
-      <div *ngFor="let entity of administratingEntities" class="col-12 m-2">
-        <button class="btn btn-primary" [routerLink]="entity[1]">{{entity[0]}}</button>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-12">
+      <div class="row text-center">
+        <div class="col-12 h3 mt-15">Администрирование</div>
       </div>
-    </div>
-    <div class="row justify-content-between mt-2">
-      <div class="col-6">
-        <button class="btn btn-danger" (click)="goBack()">Назад</button>
-      </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
