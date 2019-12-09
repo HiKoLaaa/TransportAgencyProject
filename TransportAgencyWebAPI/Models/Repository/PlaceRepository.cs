@@ -25,7 +25,11 @@ namespace TransportAgencyWebAPI.Models.Repository
 			_context.Places.Add(item);
 		}
 
-		public void DeleteItem(Guid id) => _context.Places.Remove(_context.Places.Find(id));
+		public void DeleteItem(Guid id)
+		{
+			_context.Trips.RemoveRange(_context.Trips.Where(t => t.DeparturePlaceId == id || t.ArrivalPlaceId == id));
+			_context.Places.Remove(_context.Places.Find(id));
+		}
 
 		public void EditItem(Place item)
 		{
