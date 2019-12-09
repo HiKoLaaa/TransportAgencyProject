@@ -60,7 +60,7 @@ export class TripRepository {
 
   private prepareToSave(trip: Trip): object {
     const body = {
-      id: trip.id,
+      id: trip.id.toString(),
       transportType: trip.transportType,
       departurePlace: trip.departurePlace,
       arrivalPlace: trip.arrivalPlace,
