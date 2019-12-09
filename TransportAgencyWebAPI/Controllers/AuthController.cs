@@ -31,10 +31,9 @@ namespace TransportAgencyWebAPI.Controllers
 			_userManager = userManager;
 		}
 
-		[HttpPost]
-		[Route("registration")]
+		[HttpPost("registration")]
 		[AllowAnonymous]
-		public async Task<JsonResult> Registration(string userName, string userEmail, string password)
+		public async Task<JsonResult> RegistrationAsync(string userName, string userEmail, string password)
 		{
 			var newUser = new IdentityUser(userName)
 			{
@@ -51,10 +50,9 @@ namespace TransportAgencyWebAPI.Controllers
 			return Json(BadRequest());
 		}
 
-		[Route("login")]
 		[AllowAnonymous]
-		[HttpPost]
-		public async Task<JsonResult> Login(string userEmail, string password)
+		[HttpPost("login")]
+		public async Task<JsonResult> LoginAsync(string userEmail, string password)
 		{
 			var user = await _userManager.FindByEmailAsync(userEmail);
 			bool result = false;
@@ -106,7 +104,7 @@ namespace TransportAgencyWebAPI.Controllers
 
 
 		// TODO: сделать возможность смену пароля.
-		public async Task<bool> ChangePassword(IdentityUser user, string oldPassword, string newPassword)
+		public async Task<bool> ChangePasswordAsync(IdentityUser user, string oldPassword, string newPassword)
 		{
 			var result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
 			return result.Succeeded;

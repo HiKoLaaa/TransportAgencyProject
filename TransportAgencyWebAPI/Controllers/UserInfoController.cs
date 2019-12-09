@@ -21,8 +21,7 @@ namespace TransportAgencyWebAPI.Controllers
 			_userManager = userManager;
 		}
 
-		[HttpGet]
-		[Route("role")]
+		[HttpGet("role")]
 		public JsonResult GetRole()
 		{
 			var userRole = User.FindAll(ClaimTypes.Role);
@@ -30,10 +29,9 @@ namespace TransportAgencyWebAPI.Controllers
 			return isAdmin != null ? Json(RoleNamesHelper.ADMIN_ROLE) : Json(RoleNamesHelper.USER_ROLE);
 		}
 
-		[Route("check_email")]
 		[AllowAnonymous]
-		[HttpGet]
-		public async Task<JsonResult> CheckFreeEmail(string email)
+		[HttpGet("check_email")]
+		public async Task<JsonResult> CheckFreeEmailAsync(string email)
 		{
 			var result = await _userManager.FindByEmailAsync(email);
 			return Json(result == null);
