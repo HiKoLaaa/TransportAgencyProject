@@ -8,7 +8,7 @@
         Откуда: {{tr.departurePlace.name}} - Куда: {{tr.arrivalPlace.name}}
         <div class="text-right">
           <button type="button" class="btn-sm btn btn-primary m-1">Просмотреть</button>
-          <button type="button" class="btn-sm btn btn-warning m-1">Изменить</button>
+          <button type="button" class="btn-sm btn btn-warning m-1" (click)="editTrip(tr.id)">Изменить</button>
           <button type="button" class="btn-sm btn btn-danger m-1" (click)="deleteTrip(tr.id)">Удалить</button>
         </div>
       </div>

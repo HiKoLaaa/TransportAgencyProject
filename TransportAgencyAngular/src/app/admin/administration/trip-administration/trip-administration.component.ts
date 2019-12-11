@@ -3,6 +3,7 @@ import {TripRepository} from '../../../model/repository/tripRepository.model';
 import {Trip} from '../../../model/dbModel/trip.model';
 import {Guid} from 'guid-typescript';
 import {Location} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-trip-administration',
@@ -13,13 +14,18 @@ export class TripAdministrationComponent {
   allTrips: Trip[];
 
   constructor(private tripRepository: TripRepository,
-              private location: Location) {
+              private location: Location,
+              private router: Router) {
     this.allTrips = [];
     this.getAllTrips();
   }
 
   deleteTrip(id: Guid) {
     this.tripRepository.deleteTrip(id).subscribe(x => this.getAllTrips());
+  }
+
+  editTrip(id: Guid) {
+    this.router.navigateByUrl(`admin_panel/trips/form/edit?trip_id=${id}`);
   }
 
   private getAllTrips() {

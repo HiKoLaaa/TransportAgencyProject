@@ -12,6 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   imports: [AutocompleteLibModule, ReactiveFormsModule, CommonModule, routing],
   declarations: [AdminMainPageComponent, TripAdministrationComponent, AdminMenuComponent, TripFormComponent],
+  providers: [],
   exports: [AdminMainPageComponent]
 })
 export class AdminModule { }
