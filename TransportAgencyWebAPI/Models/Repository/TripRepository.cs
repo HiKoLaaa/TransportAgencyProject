@@ -45,7 +45,7 @@ namespace TransportAgencyWebAPI.Models.Repository
 			editTrip.SaleTickets = item.SaleTickets;
 		}
 		
-		public async Task<IEnumerable<Trip>> GetAllAsync() => await _context.Trips
+		public async Task<IEnumerable<Trip>> GetAllItemsAsync() => await _context.Trips
 			.Include(t => t.TransportType)
 			.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
 			.Include(t => t.DeparturePlace).ThenInclude(p => p.Country)
@@ -78,7 +78,7 @@ namespace TransportAgencyWebAPI.Models.Repository
 				.Where((t) => tripInfo(t)).ToListAsync();
 		}
 
-		public async Task<Trip> GetOneAsync(Guid id) => await _context.Trips
+		public async Task<Trip> GetOneItemAsync(Guid id) => await _context.Trips
 			.Include(t => t.TransportType)
 			.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
 			.Include(t => t.DeparturePlace).ThenInclude(p => p.Country)

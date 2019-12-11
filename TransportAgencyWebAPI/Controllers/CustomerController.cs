@@ -21,11 +21,11 @@ namespace TransportAgencyWebAPI.Controllers
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
-		public async Task<IEnumerable<Customer>> GetAsync() => await _unitOfWork.CustomerRepository.GetAllAsync();
+		public async Task<IEnumerable<Customer>> GetAsync() => await _unitOfWork.CustomerRepository.GetAllItemsAsync();
 
 		[HttpGet("{id}")]
 		[Authorize(Roles = "Admin")]
-		public async Task<Customer> GetAsync(Guid id) => await _unitOfWork.CustomerRepository.GetOneAsync(id);
+		public async Task<Customer> GetAsync(Guid id) => await _unitOfWork.CustomerRepository.GetOneItemAsync(id);
 
 		[HttpPost]
 		public async Task PostAsync([FromBody]Customer customer)

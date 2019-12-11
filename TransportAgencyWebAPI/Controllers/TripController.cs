@@ -20,7 +20,7 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IEnumerable<Trip>> GetAsync() => await _unitOfWork.TripRepository.GetAllAsync();
+		public async Task<IEnumerable<Trip>> GetAsync() => await _unitOfWork.TripRepository.GetAllItemsAsync();
 
 		[HttpGet("sort")]
 		public async Task<IEnumerable<Trip>> GetAsync(FindTripInfoViewModel info) => 
@@ -28,7 +28,7 @@ namespace TransportAgencyWebAPI.Controllers
 
 		[HttpGet("{id}")]
 		public async Task<Trip> GetAsync(Guid id) => 
-			await _unitOfWork.TripRepository.GetOneAsync(id);
+			await _unitOfWork.TripRepository.GetOneItemAsync(id);
 
 		[HttpPost]
 		[Authorize(Roles = "Admin")]

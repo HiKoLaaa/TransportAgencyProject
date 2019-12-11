@@ -19,10 +19,10 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IEnumerable<TransportType>> GetAsync() => await _unitOfWork.TransportTypeRepository.GetAllAsync();
+		public async Task<IEnumerable<TransportType>> GetAsync() => await _unitOfWork.TransportTypeRepository.GetAllItemsAsync();
 
 		[HttpGet("{id}")]
-		public async Task<TransportType> GetAsync(Guid id) => await _unitOfWork.TransportTypeRepository.GetOneAsync(id);
+		public async Task<TransportType> GetAsync(Guid id) => await _unitOfWork.TransportTypeRepository.GetOneItemAsync(id);
 
 		[HttpPost]
 		[Authorize(Roles = "Admin")]

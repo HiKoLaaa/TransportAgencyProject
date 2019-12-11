@@ -43,9 +43,9 @@ namespace TransportAgencyWebAPI.Models.Repository
 			editPlace.Name = item.Name;
 		}
 
-		public async Task<IEnumerable<Place>> GetAllAsync() => await _context.Places.Include(p => p.Country).ToListAsync();
+		public async Task<IEnumerable<Place>> GetAllItemsAsync() => await _context.Places.Include(p => p.Country).ToListAsync();
 
-		public async Task<Place> GetOneAsync(Guid id) => await _context.Places
+		public async Task<Place> GetOneItemAsync(Guid id) => await _context.Places
 			.Include(p => p.Country)
 			.Where(p => p.Id == id)
 			.FirstOrDefaultAsync();

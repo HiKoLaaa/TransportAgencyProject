@@ -36,10 +36,10 @@ namespace TransportAgencyWebAPI.Models.Repository
 			editCustomer.TripId = item.Trip.Id;
 		}
 
-		public async Task<IEnumerable<Customer>> GetAllAsync() => 
+		public async Task<IEnumerable<Customer>> GetAllItemsAsync() => 
 			await _context.Customers.Include(c => c.Trip).ToListAsync();
 
-		public async Task<Customer> GetOneAsync(Guid id) => await _context.Customers
+		public async Task<Customer> GetOneItemAsync(Guid id) => await _context.Customers
 			.Include(c => c.Trip)
 			.Where(c => c.Id == id)
 			.FirstOrDefaultAsync();

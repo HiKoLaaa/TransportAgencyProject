@@ -28,8 +28,8 @@ namespace TransportAgencyWebAPI.Models.Repository
 			editTransportType.Name = item.Name;
 		}
 
-		public async Task<IEnumerable<TransportType>> GetAllAsync() => await _context.TransportTypes.ToListAsync();
+		public async Task<IEnumerable<TransportType>> GetAllItemsAsync() => await _context.TransportTypes.ToListAsync();
 
-		public async Task<TransportType> GetOneAsync(Guid id) => await _context.TransportTypes.FindAsync(id);
+		public async Task<TransportType> GetOneItemAsync(Guid id) => await _context.TransportTypes.FindAsync(id);
 	}
 }
