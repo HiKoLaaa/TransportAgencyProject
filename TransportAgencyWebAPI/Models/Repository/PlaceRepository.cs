@@ -9,7 +9,7 @@ using TransportAgencyWebAPI.Models.DbModels;
 
 namespace TransportAgencyWebAPI.Models.Repository
 {
-	public class PlaceRepository : IRepository<Place>
+	public class PlaceRepository : IRepositoryAsync<Place>
 	{
 		private TransportAgencyContext _context;
 
@@ -18,31 +18,36 @@ namespace TransportAgencyWebAPI.Models.Repository
 			_context = context;
 		}
 
-		public void AddItem(Place item)
+		public async Task AddItemAsync(Place item)
 		{
 			item.CountryId = item.Country.Id;
 			item.Country = null;
-			_context.Places.Add(item);
+			await _context.Places.AddAsync(item);
 		}
 
-		public void DeleteItem(Guid id)
+		public async Task DeleteItemAsync(Guid id)
 		{
-			_context.Trips.RemoveRange(_context.Trips.Where(t => t.DeparturePlaceId == id || t.ArrivalPlaceId == id));
-			_context.Places.Remove(_context.Places.Find(id));
+			await Task.Run(async () => 
+			{
+				_context.Trips.RemoveRange(await _context.Trips.Where(t => t.DeparturePlaceId == id || t.ArrivalPlaceId == id)
+					.ToListAsync());
+
+				_context.Places.Remove(await _context.Places.FindAsync(id));
+			});
 		}
 
-		public void EditItem(Place item)
+		public async Task EditItemAsync(Place item)
 		{
-			Place editPlace = _context.Places.Find(item.Id);
+			Place editPlace = await _context.Places.FindAsync(item.Id);
 			editPlace.CountryId = item.Country.Id;
 			editPlace.Name = item.Name;
 		}
 
-		public IEnumerable<Place> GetAll() => _context.Places.Include(p => p.Country);
+		public async Task<IEnumerable<Place>> GetAllAsync() => await _context.Places.Include(p => p.Country).ToListAsync();
 
-		public Place GetOne(Guid id) => _context.Places
+		public async Task<Place> GetOneAsync(Guid id) => await _context.Places
 			.Include(p => p.Country)
 			.Where(p => p.Id == id)
-			.FirstOrDefault();
+			.FirstOrDefaultAsync();
 	}
 }

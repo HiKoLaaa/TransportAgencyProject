@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TransportAgencyWebAPI.Models.DbModels;
@@ -18,33 +19,33 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpGet]
-		public IEnumerable<Place> Get() => _unitOfWork.PlaceRepository.GetAll();
+		public async Task<IEnumerable<Place>> GetAsync() => await _unitOfWork.PlaceRepository.GetAllAsync();
 
 		[HttpGet("{id}")]
-		public Place Get(Guid id) => _unitOfWork.PlaceRepository.GetOne(id);
+		public async Task<Place> GetAsync(Guid id) => await _unitOfWork.PlaceRepository.GetOneAsync(id);
 
 		[HttpPost]
 		[Authorize(Roles = "Admin")]
-		public void Post([FromBody]Place place)
+		public async Task PostAsync([FromBody]Place place)
 		{
-			_unitOfWork.PlaceRepository.AddItem(place);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.PlaceRepository.AddItemAsync(place);
+			await _unitOfWork.SaveChangesAsync();
 		}
 
 		[HttpPut]
 		[Authorize(Roles = "Admin")]
-		public void Put([FromBody]Place place)
+		public async Task PutAsync([FromBody]Place place)
 		{
-			_unitOfWork.PlaceRepository.EditItem(place);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.PlaceRepository.EditItemAsync(place);
+			await _unitOfWork.SaveChangesAsync();
 		}
 
 		[HttpDelete("{id}")]
 		[Authorize(Roles = "Admin")]
-		public void Delete(Guid id)
+		public async Task DeleteAsync(Guid id)
 		{
-			_unitOfWork.PlaceRepository.DeleteItem(id);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.PlaceRepository.DeleteItemAsync(id);
+			await _unitOfWork.SaveChangesAsync();
 		}
 	}
 }

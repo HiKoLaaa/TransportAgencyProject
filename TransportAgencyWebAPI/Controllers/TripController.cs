@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TransportAgencyWebAPI.Models.DbModels;
@@ -19,36 +20,38 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpGet]
-		public IEnumerable<Trip> Get() => _unitOfWork.TripRepository.GetAll();
+		public async Task<IEnumerable<Trip>> GetAsync() => await _unitOfWork.TripRepository.GetAllAsync();
 
 		[HttpGet("sort")]
-		public IEnumerable<Trip> Get(FindTripInfoViewModel info) => _unitOfWork.TripRepository.GetAll(info);
+		public async Task<IEnumerable<Trip>> GetAsync(FindTripInfoViewModel info) => 
+			await _unitOfWork.TripRepository.GetAllAsync(info);
 
 		[HttpGet("{id}")]
-		public Trip Get(Guid id) => _unitOfWork.TripRepository.GetOne(id);
+		public async Task<Trip> GetAsync(Guid id) => 
+			await _unitOfWork.TripRepository.GetOneAsync(id);
 
 		[HttpPost]
 		[Authorize(Roles = "Admin")]
-		public void Post([FromBody]Trip trip)
+		public async Task PostAsync([FromBody]Trip trip)
 		{
-			_unitOfWork.TripRepository.AddItem(trip);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.TripRepository.AddItemAsync(trip);
+			await _unitOfWork.SaveChangesAsync();
 		}
 
 		[HttpPut]
 		[Authorize(Roles = "Admin")]
-		public void Put([FromBody]Trip trip)
+		public async Task PutAsync([FromBody]Trip trip)
 		{
-			_unitOfWork.TripRepository.EditItem(trip);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.TripRepository.EditItemAsync(trip);
+			await _unitOfWork.SaveChangesAsync();
 		}
 
 		[HttpDelete("{id}")]
 		[Authorize(Roles = "Admin")]
-		public void Delete(Guid id)
+		public async Task DeleteAsync(Guid id)
 		{
-			_unitOfWork.TripRepository.DeleteItem(id);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.TripRepository.DeleteItemAsync(id);
+			await _unitOfWork.SaveChangesAsync();
 		}
 	}
 }

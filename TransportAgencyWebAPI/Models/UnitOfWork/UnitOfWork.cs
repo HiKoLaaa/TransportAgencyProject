@@ -1,4 +1,5 @@
-﻿using TransportAgencyWebAPI.Models.DbContext;
+﻿using System.Threading.Tasks;
+using TransportAgencyWebAPI.Models.DbContext;
 using TransportAgencyWebAPI.Models.DbModels;
 using TransportAgencyWebAPI.Models.Repository;
 
@@ -8,8 +9,8 @@ namespace TransportAgencyWebAPI.Models.UnitOfWork
 	{
 		private TransportAgencyContext _context;
 
-		private IRepository<Customer> _customerRepository;
-		public IRepository<Customer> CustomerRepository
+		private IRepositoryAsync<Customer> _customerRepository;
+		public IRepositoryAsync<Customer> CustomerRepository
 		{
 			get
 			{
@@ -22,8 +23,8 @@ namespace TransportAgencyWebAPI.Models.UnitOfWork
 			}
 		}
 
-		private IFindTripWithParametersRepository<Trip> _tripRepository;
-		public IFindTripWithParametersRepository<Trip> TripRepository
+		private IFindTripWithParametersRepositoryAsync<Trip> _tripRepository;
+		public IFindTripWithParametersRepositoryAsync<Trip> TripRepository
 		{
 			get
 			{
@@ -36,8 +37,8 @@ namespace TransportAgencyWebAPI.Models.UnitOfWork
 			}
 		}
 
-		private IRepository<Place> _placeRepository;
-		public IRepository<Place> PlaceRepository
+		private IRepositoryAsync<Place> _placeRepository;
+		public IRepositoryAsync<Place> PlaceRepository
 		{
 			get
 			{
@@ -50,8 +51,8 @@ namespace TransportAgencyWebAPI.Models.UnitOfWork
 			}
 		}
 
-		private IRepository<TransportType> _transportTypeRepository;
-		public IRepository<TransportType> TransportTypeRepository
+		private IRepositoryAsync<TransportType> _transportTypeRepository;
+		public IRepositoryAsync<TransportType> TransportTypeRepository
 		{
 			get
 			{
@@ -69,6 +70,6 @@ namespace TransportAgencyWebAPI.Models.UnitOfWork
 			_context = context;
 		}
 
-		public void SaveChanges() => _context.SaveChanges();
+		public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
 	}
 }

@@ -1,14 +1,15 @@
-﻿using TransportAgencyWebAPI.Models.DbModels;
+﻿using System.Threading.Tasks;
+using TransportAgencyWebAPI.Models.DbModels;
 using TransportAgencyWebAPI.Models.Repository;
 
 namespace TransportAgencyWebAPI.Models.UnitOfWork
 {
 	public interface IUnitOfWork
 	{
-		IRepository<Customer> CustomerRepository { get; }
-		IRepository<Place> PlaceRepository { get; }
-		IRepository<TransportType> TransportTypeRepository { get; }
-		IFindTripWithParametersRepository<Trip> TripRepository { get; }
-		void SaveChanges();
+		IRepositoryAsync<Customer> CustomerRepository { get; }
+		IRepositoryAsync<Place> PlaceRepository { get; }
+		IRepositoryAsync<TransportType> TransportTypeRepository { get; }
+		IFindTripWithParametersRepositoryAsync<Trip> TripRepository { get; }
+		Task SaveChangesAsync();
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using TransportAgencyWebAPI.Models.DbModels;
 
 namespace TransportAgencyWebAPI.Models.Repository
 {
-	public class TransportTypeRepository : IRepository<TransportType>
+	public class TransportTypeRepository : IRepositoryAsync<TransportType>
 	{
 		private TransportAgencyContext _context;
 
@@ -16,18 +17,19 @@ namespace TransportAgencyWebAPI.Models.Repository
 			_context = context;
 		}
 
-		public void AddItem(TransportType item) => _context.TransportTypes.Add(item);
+		public async Task AddItemAsync(TransportType item) => await _context.TransportTypes.AddAsync(item);
 
-		public void DeleteItem(Guid id) => _context.TransportTypes.Remove(_context.TransportTypes.Find(id));
-
-		public void EditItem(TransportType item)
+		public async Task DeleteItemAsync(Guid id) => 
+			await Task.Run(async () => _context.TransportTypes.Remove(await _context.TransportTypes.FindAsync(id)));
+		
+		public async Task EditItemAsync(TransportType item)
 		{
-			TransportType editTransportType = _context.TransportTypes.Find(item.Id);
+			TransportType editTransportType = await _context.TransportTypes.FindAsync(item.Id);
 			editTransportType.Name = item.Name;
 		}
 
-		public IEnumerable<TransportType> GetAll() => _context.TransportTypes;
+		public async Task<IEnumerable<TransportType>> GetAllAsync() => await _context.TransportTypes.ToListAsync();
 
-		public TransportType GetOne(Guid id) => _context.TransportTypes.Find(id);
+		public async Task<TransportType> GetOneAsync(Guid id) => await _context.TransportTypes.FindAsync(id);
 	}
 }

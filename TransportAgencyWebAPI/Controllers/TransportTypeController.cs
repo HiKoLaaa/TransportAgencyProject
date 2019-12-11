@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TransportAgencyWebAPI.Models.DbModels;
 using TransportAgencyWebAPI.Models.UnitOfWork;
 
@@ -18,33 +19,33 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpGet]
-		public IEnumerable<TransportType> Get() => _unitOfWork.TransportTypeRepository.GetAll();
+		public async Task<IEnumerable<TransportType>> GetAsync() => await _unitOfWork.TransportTypeRepository.GetAllAsync();
 
 		[HttpGet("{id}")]
-		public TransportType Get(Guid id) => _unitOfWork.TransportTypeRepository.GetOne(id);
+		public async Task<TransportType> GetAsync(Guid id) => await _unitOfWork.TransportTypeRepository.GetOneAsync(id);
 
 		[HttpPost]
 		[Authorize(Roles = "Admin")]
-		public void Post([FromBody]TransportType transportType)
+		public async Task Post([FromBody]TransportType transportType)
 		{
-			_unitOfWork.TransportTypeRepository.AddItem(transportType);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.TransportTypeRepository.AddItemAsync(transportType);
+			await _unitOfWork.SaveChangesAsync();
 		}
 
 		[HttpPut]
 		[Authorize(Roles = "Admin")]
-		public void Put([FromBody]TransportType transportType)
+		public async Task Put([FromBody]TransportType transportType)
 		{
-			_unitOfWork.TransportTypeRepository.EditItem(transportType);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.TransportTypeRepository.EditItemAsync(transportType);
+			await _unitOfWork.SaveChangesAsync();
 		}
 
 		[HttpDelete("{id}")]
 		[Authorize(Roles = "Admin")]
-		public void Delete(Guid id)
+		public async Task Delete(Guid id)
 		{
-			_unitOfWork.TransportTypeRepository.DeleteItem(id);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.TransportTypeRepository.DeleteItemAsync(id);
+			await _unitOfWork.SaveChangesAsync();
 		}
 
 	}

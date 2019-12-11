@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TransportAgencyWebAPI.Models.DbContext;
 using TransportAgencyWebAPI.Models.DbModels;
 using TransportAgencyWebAPI.Models.ViewModels;
 
 namespace TransportAgencyWebAPI.Models.Repository
 {
-	public class TripRepository : IFindTripWithParametersRepository<Trip>
+	public class TripRepository : IFindTripWithParametersRepositoryAsync<Trip>
 	{
 		private TransportAgencyContext _context;
 
@@ -17,7 +18,7 @@ namespace TransportAgencyWebAPI.Models.Repository
 			_context = context;
 		}
 
-		public void AddItem(Trip item)
+		public async Task AddItemAsync(Trip item)
 		{
 			item.TransportTypeId = item.TransportType.Id;
 			item.ArrivalPlaceId = item.ArrivalPlace.Id;
@@ -25,14 +26,15 @@ namespace TransportAgencyWebAPI.Models.Repository
 			item.TransportType = null;
 			item.ArrivalPlace = null;
 			item.DeparturePlace = null;
-			_context.Trips.Add(item);
+			await _context.Trips.AddAsync(item);
 		}
 
-		public void DeleteItem(Guid id) => _context.Trips.Remove(_context.Trips.Find(id));
+		public async Task DeleteItemAsync(Guid id) => 
+			await Task.Run(async () => _context.Trips.Remove(await _context.Trips.FindAsync(id)));
 
-		public void EditItem(Trip item)
+		public async Task EditItemAsync(Trip item)
 		{
-			Trip editTrip = _context.Trips.Find(item.Id);
+			Trip editTrip = await _context.Trips.FindAsync(item.Id);
 			editTrip.TransportTypeId = item.TransportType.Id;
 			editTrip.ArrivalPlaceId = item.ArrivalPlace.Id;
 			editTrip.DeparturePlaceId = item.DeparturePlace.Id;
@@ -43,12 +45,13 @@ namespace TransportAgencyWebAPI.Models.Repository
 			editTrip.SaleTickets = item.SaleTickets;
 		}
 		
-		public IEnumerable<Trip> GetAll() => _context.Trips
+		public async Task<IEnumerable<Trip>> GetAllAsync() => await _context.Trips
 			.Include(t => t.TransportType)
 			.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
-			.Include(t => t.DeparturePlace).ThenInclude(p => p.Country);
+			.Include(t => t.DeparturePlace).ThenInclude(p => p.Country)
+			.ToListAsync();
 
-		public IEnumerable<Trip> GetAll(FindTripInfoViewModel info)
+		public async Task<IEnumerable<Trip>> GetAllAsync(FindTripInfoViewModel info)
 		{
 			Func<Trip, bool> tripInfo = (t =>
 			{
@@ -68,18 +71,18 @@ namespace TransportAgencyWebAPI.Models.Repository
 				return match;
 			});
 
-			return _context.Trips
+			return await _context.Trips
 				.Include(t => t.TransportType)
 				.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
 				.Include(t => t.DeparturePlace).ThenInclude(p => p.Country)
-				.Where(tripInfo);
+				.Where((t) => tripInfo(t)).ToListAsync();
 		}
 
-		public Trip GetOne(Guid id) => _context.Trips
+		public async Task<Trip> GetOneAsync(Guid id) => await _context.Trips
 			.Include(t => t.TransportType)
 			.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
 			.Include(t => t.DeparturePlace).ThenInclude(p => p.Country)
 			.Where(t => t.Id == id)
-			.FirstOrDefault();
+			.FirstOrDefaultAsync();
 	}
 }

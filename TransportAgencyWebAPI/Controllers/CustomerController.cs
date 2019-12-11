@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TransportAgencyWebAPI.Models.DbModels;
 using TransportAgencyWebAPI.Models.UnitOfWork;
 
@@ -20,36 +21,36 @@ namespace TransportAgencyWebAPI.Controllers
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
-		public IEnumerable<Customer> Get() => _unitOfWork.CustomerRepository.GetAll();
+		public async Task<IEnumerable<Customer>> GetAsync() => await _unitOfWork.CustomerRepository.GetAllAsync();
 
 		[HttpGet("{id}")]
 		[Authorize(Roles = "Admin")]
-		public Customer Get(Guid id) => _unitOfWork.CustomerRepository.GetOne(id);
+		public async Task<Customer> GetAsync(Guid id) => await _unitOfWork.CustomerRepository.GetOneAsync(id);
 
 		[HttpPost]
-		public void Post([FromBody]Customer customer)
+		public async Task PostAsync([FromBody]Customer customer)
 		{
 			customer.Trip.SaleTickets++;
 			customer.Trip.AvailableTickets--;
-			_unitOfWork.TripRepository.EditItem(customer.Trip);
-			_unitOfWork.CustomerRepository.AddItem(customer);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.TripRepository.EditItemAsync(customer.Trip);
+			await _unitOfWork.CustomerRepository.AddItemAsync(customer);
+			await _unitOfWork.SaveChangesAsync();
 		}
 
 		[HttpPut]
 		[Authorize(Roles = "Admin")]
-		public void Put([FromBody]Customer customer)
+		public async Task PutAsync([FromBody]Customer customer)
 		{
-			_unitOfWork.CustomerRepository.EditItem(customer);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.CustomerRepository.EditItemAsync(customer);
+			await _unitOfWork.SaveChangesAsync();
 		}
 
 		[HttpDelete("{id}")]
 		[Authorize(Roles = "Admin")]
-		public void Delete(Guid id)
+		public async Task DeleteAsync(Guid id)
 		{
-			_unitOfWork.CustomerRepository.DeleteItem(id);
-			_unitOfWork.SaveChanges();
+			await _unitOfWork.CustomerRepository.DeleteItemAsync(id);
+			await _unitOfWork.SaveChangesAsync();
 		}
 	}
 }

@@ -6,8 +6,8 @@ using TransportAgencyWebAPI.Models.ViewModels;
 
 namespace TransportAgencyWebAPI.Models.Repository
 {
-	public interface IFindTripWithParametersRepository<T> : IRepository<T>
+	public interface IFindTripWithParametersRepositoryAsync<T> : IRepositoryAsync<T>
 	{
-		IEnumerable<T> GetAll(FindTripInfoViewModel info);
+		Task<IEnumerable<T>> GetAllAsync(FindTripInfoViewModel info);
 	}
 }
