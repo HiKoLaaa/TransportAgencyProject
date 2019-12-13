@@ -62,7 +62,9 @@
         <button class="btn btn-danger" (click)="location.back()">Назад</button>
       </div>
       <div class="col-6 text-right">
-        <button [disabled]="submitted && form.invalid" class="btn btn-primary" (click)="submitForm()">Добавить</button>
+        <button [disabled]="submitted && form.invalid" class="btn"
+                [class.btn-primary]="mode === 'create'" [class.btn-warning]="mode === 'edit'"
+                (click)="submitForm()">{{mode === 'create' ? 'Добавить' : 'Изменить'}}</button>
       </div>
     </div>
   </div>

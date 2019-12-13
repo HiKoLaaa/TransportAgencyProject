@@ -37,6 +37,9 @@
       <div class="col-lg-6 col-md-12 col-12 mb-1">
         Количество доступных билетов: {{suitTr.availableTickets}}
       </div>
+      <div class="col-lg-6 col-md-12 col-12 mb-1">
+        Цена: {{suitTr.price | currency:'RUB':'symbol-narrow'}}
+      </div>
       <div class="col-12 mb-1">
         <div class="float-right">
           <button class="float-right btn btn-danger" [disabled]="suitTr.availableTickets < 1"

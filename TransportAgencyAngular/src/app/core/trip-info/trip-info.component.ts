@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import {FIND_INFO, FindTripInfoClientViewModel} from '../../view-model/find-trip-info.client.view-model';
@@ -11,7 +11,7 @@ import {TripRepository} from '../../model/repository/tripRepository.model';
   templateUrl: './trip-info.component.html',
   styleUrls: ['./trip-info.component.scss']
 })
-export class TripInfoComponent {
+export class TripInfoComponent implements OnInit {
   info: FindTripInfoClientViewModel;
   infoParameters: Map<string, string>;
   findTrips: Trip[];
@@ -21,13 +21,16 @@ export class TripInfoComponent {
               private tripRepository: TripRepository) {
     this.infoParameters = new Map();
     this.findTrips = [];
-    tripInfo
-      .subscribe(info => {
-      this.info = info;
-      this.setViewInfo();
-    });
+  }
 
-    tripRepository.getSuitableTrips(this.modifyInfo())
+  ngOnInit(): void {
+    this.tripInfo
+      .subscribe(info => {
+        this.info = info;
+        this.setViewInfo();
+      });
+
+    this.tripRepository.getSuitableTrips(this.modifyInfo())
       .subscribe(suitPl => {
         this.findTrips = suitPl;
       });
