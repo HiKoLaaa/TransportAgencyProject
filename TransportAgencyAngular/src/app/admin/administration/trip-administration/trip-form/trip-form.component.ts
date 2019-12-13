@@ -114,6 +114,8 @@ export class TripFormComponent {
     this.form.get('kindTransport').setValue(this.trip.transportType.name);
 
     let date = new Date(this.trip.arrivalTime);
+
+    // Чтобы дата соответствовала формату date input.
     let stringDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`;
     this.form.get('arrivalDate').setValue(stringDate);
 
