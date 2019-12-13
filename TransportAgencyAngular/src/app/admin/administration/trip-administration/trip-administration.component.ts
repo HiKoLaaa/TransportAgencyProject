@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TripRepository} from '../../../model/repository/tripRepository.model';
 import {Trip} from '../../../model/dbModel/trip.model';
 import {Guid} from 'guid-typescript';
@@ -10,14 +10,17 @@ import {Router} from '@angular/router';
   templateUrl: './trip-administration.component.html',
   styleUrls: ['./trip-administration.component.scss']
 })
-export class TripAdministrationComponent {
+export class TripAdministrationComponent implements OnInit {
   allTrips: Trip[];
 
   constructor(private tripRepository: TripRepository,
               private location: Location,
               private router: Router) {
     this.allTrips = [];
-    this.getAllTrips();
+  }
+
+  showTrip(id: Guid) {
+    this.router.navigateByUrl(`admin_panel/trips/show?trip_id=${id}`);
   }
 
   deleteTrip(id: Guid) {
@@ -30,5 +33,9 @@ export class TripAdministrationComponent {
 
   private getAllTrips() {
     this.tripRepository.getAllTrips().subscribe(trips => this.allTrips = trips);
+  }
+
+  ngOnInit(): void {
+    this.getAllTrips();
   }
 }

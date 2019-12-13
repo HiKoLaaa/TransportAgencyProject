@@ -4,6 +4,7 @@ import {AdminMainPageComponent} from '../admin-main-page/admin-main-page.compone
 import {AdminMenuComponent} from '../admin-menu/admin-menu.component';
 import {ResolveTripInfoGuard} from '../../guard/resolve-trip-info/resolve-trip-info.guard';
 import {TripFormComponent} from '../administration/trip-administration/trip-form/trip-form.component';
+import {TripShowComponent} from '../administration/trip-administration/trip-show/trip-show.component';
 
 const childrenRoutes: Routes = [
   {path: '', component: AdminMenuComponent},
@@ -15,6 +16,10 @@ const childrenRoutes: Routes = [
   {
     path: 'trips/form/:mode',
     component: TripFormComponent
+  },
+  {
+    path: 'trips/show',
+    component: TripShowComponent
   }
   // TODO: добавить марштуры.
 ];

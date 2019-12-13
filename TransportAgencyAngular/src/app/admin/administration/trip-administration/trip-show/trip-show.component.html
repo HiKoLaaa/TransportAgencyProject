@@ -1,0 +1,15 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-12 col-md-8 text-center bg-info p-2 h3 text-white">
+    <div>Место отправления: {{trip.departurePlace.name}}</div>
+    <div>Место прибытия: {{trip.arrivalPlace.name}}</div>
+    <div>Дата отправления: {{trip.departureTime | date: 'dd:MM:yyyy hh-mm-ss'}}</div>
+    <div>Дата прибытия: {{trip.arrivalTime | date: 'dd:MM:yyyy hh-mm-ss'}}</div>
+    <div>Вид транспорта: {{trip.transportType.name}}</div>
+    <div>Цена билета: {{trip.price | currency:'RUB':'symbol-narrow'}}</div>
+    <div>Количество проданных билетов: {{trip.saleTickets}}</div>
+    <div>Количество оставшихся билетов: {{trip.availableTickets}}</div>
+  </div>
+  <div class="col-12 col-md-8 text-left">
+    <button class="btn btn-danger" (click)="location.back()">Назад</button>
+  </div>
+</div>
