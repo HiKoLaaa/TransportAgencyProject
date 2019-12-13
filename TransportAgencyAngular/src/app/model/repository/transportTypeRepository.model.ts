@@ -21,6 +21,7 @@ export class TransportTypeRepository {
 
   addType(tranType: TransportType): Observable<TransportType> {
     tranType.id = Guid.create();
+    console.log(tranType);
     return this.http.post<TransportType>(`${MAIN_PART_URL}/${API_TRANSPORT_TYPE}`, this.prepareToSave(tranType));
   }
 
@@ -34,7 +35,7 @@ export class TransportTypeRepository {
 
   private prepareToSave(tranType: TransportType): object {
     const body = {
-      id: tranType.id,
+      id: tranType.id.toString(),
       name: tranType.name
     };
 

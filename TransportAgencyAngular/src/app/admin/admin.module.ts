@@ -8,12 +8,13 @@ import { TripFormComponent } from './administration/trip-administration/trip-for
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import {ReactiveFormsModule} from '@angular/forms';
 import { TripShowComponent } from './administration/trip-administration/trip-show/trip-show.component';
-import { TransportTypeAdministrationComponent } from './administration/trip-administration/transport-type-administration/transport-type-administration.component';
+import { TransportTypeAdministrationComponent } from './administration/transport-type-administration/transport-type-administration.component';
+import { TransportTypeFormComponent } from './administration/transport-type-administration/transport-type-form/transport-type-form.component';
 
 
 @NgModule({
   imports: [AutocompleteLibModule, ReactiveFormsModule, CommonModule, routing],
-  declarations: [AdminMainPageComponent, TripAdministrationComponent, AdminMenuComponent, TripFormComponent, TripShowComponent, TransportTypeAdministrationComponent],
+  declarations: [AdminMainPageComponent, TripAdministrationComponent, AdminMenuComponent, TripFormComponent, TripShowComponent, TransportTypeAdministrationComponent, TransportTypeFormComponent],
   providers: [],
   exports: [AdminMainPageComponent]
 })

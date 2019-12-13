@@ -1,0 +1,26 @@
+<div class="row mt-5">
+  <div class="col-12">
+    <div *ngIf="allTransportTypes.length === 0" class="h2 text-center">
+      Типы транспорта отсутствуют
+    </div>
+    <div class="list-group">
+      <div class="list-group-item" *ngFor="let tt of allTransportTypes">
+        Наименование: {{tt.name}}
+        <div class="text-right">
+          <button type="button" class="btn-sm btn btn-warning m-1" (click)="editTransportType(tt.id)">Изменить</button>
+          <button type="button" class="btn-sm btn btn-danger m-1" (click)="deleteTransportType(tt.id)">Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mt-2 mb-2">
+    <div class="row justify-content-between">
+      <div class="col-6 text-left">
+        <button class="btn btn-danger" (click)="location.back()">Назад</button>
+      </div>
+      <div class="col-6 text-right">
+        <button class="btn btn-primary" [routerLink]="'form/create'">Добавить</button>
+      </div>
+    </div>
+  </div>
+</div>

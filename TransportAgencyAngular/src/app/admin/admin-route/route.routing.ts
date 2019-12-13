@@ -2,9 +2,18 @@ import {RouterModule, Routes} from '@angular/router';
 import {TripAdministrationComponent} from '../administration/trip-administration/trip-administration.component';
 import {AdminMainPageComponent} from '../admin-main-page/admin-main-page.component';
 import {AdminMenuComponent} from '../admin-menu/admin-menu.component';
-import {ResolveTripInfoGuard} from '../../guard/resolve-trip-info/resolve-trip-info.guard';
+
 import {TripFormComponent} from '../administration/trip-administration/trip-form/trip-form.component';
 import {TripShowComponent} from '../administration/trip-administration/trip-show/trip-show.component';
+import {
+  TransportTypeAdministrationComponent
+} from '../administration/transport-type-administration/transport-type-administration.component';
+
+import {
+  TransportTypeFormComponent
+} from '../administration/transport-type-administration/transport-type-form/transport-type-form.component';
+import {ResolveTransportTypeInfoGuard} from '../../guard/resolve-transport-type-info/resolve-transport-type-info.guard';
+import {ResolveTripInfoGuard} from '../../guard/resolve-trip-info/resolve-trip-info.guard';
 
 const childrenRoutes: Routes = [
   {path: '', component: AdminMenuComponent},
@@ -20,6 +29,15 @@ const childrenRoutes: Routes = [
   {
     path: 'trips/show',
     component: TripShowComponent
+  },
+  {
+    path: 'transportTypes',
+    component: TransportTypeAdministrationComponent,
+    resolve: {ResolveTransportTypeInfoGuard}
+  },
+  {
+    path: 'transportTypes/form/:mode',
+    component: TransportTypeFormComponent
   }
   // TODO: добавить марштуры.
 ];
