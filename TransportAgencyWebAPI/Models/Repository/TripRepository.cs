@@ -53,29 +53,24 @@ namespace TransportAgencyWebAPI.Models.Repository
 
 		public async Task<IEnumerable<Trip>> GetAllAsync(FindTripInfoViewModel info)
 		{
-			Func<Trip, bool> tripInfo = (t =>
-			{
-				bool match = t.DeparturePlaceId == info.DepartureId && 
-					t.ArrivalPlaceId == info.ArrivalId && t.DepartureTime.Date == info.DepartureDate.Date;
-
-				if (info.ArrivalDate.HasValue)
-				{
-					match = match && info.ArrivalDate.Value.Date == t.ArrivalTime.Date;
-				}
-
-				if (info.TransportTypeId.HasValue)
-				{
-					match = match && info.TransportTypeId.Value == t.TransportTypeId; 
-				}
-
-				return match;
-			});
-
-			return await _context.Trips
+			var parametersTrips = _context.Trips
 				.Include(t => t.TransportType)
 				.Include(t => t.ArrivalPlace).ThenInclude(p => p.Country)
 				.Include(t => t.DeparturePlace).ThenInclude(p => p.Country)
-				.Where((t) => tripInfo(t)).ToListAsync();
+				.Where(t => t.DeparturePlaceId == info.DepartureId &&
+					t.ArrivalPlaceId == info.ArrivalId && t.DepartureTime.Date == info.DepartureDate.Date);
+
+			if (info.TransportTypeId.HasValue)
+			{
+				parametersTrips = parametersTrips.Where(t => info.TransportTypeId.Value == t.TransportTypeId);
+			}
+
+			if (info.ArrivalDate.HasValue)
+			{
+				parametersTrips = parametersTrips.Where(t => info.ArrivalDate.Value.Date == t.ArrivalTime.Date);
+			}
+
+			return await parametersTrips.ToListAsync();
 		}
 
 		public async Task<Trip> GetOneItemAsync(Guid id) => await _context.Trips
