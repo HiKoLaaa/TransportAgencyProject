@@ -1,6 +1,6 @@
 <div class="row text-center bg-secondary mt-5">
   <div *ngFor="let entity of administratingEntities" class="col-12 m-2">
-    <button class="btn btn-primary" [routerLink]="entity[1]">{{entity[0]}}</button>
+    <button class="btn btn-primary" [routerLink]="['manage', entity[1]]">{{entity[0]}}</button>
   </div>
 </div>
 <div class="row justify-content-between mt-2">

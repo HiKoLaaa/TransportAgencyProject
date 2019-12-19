@@ -14,31 +14,36 @@ import {
 } from '../administration/transport-type-administration/transport-type-form/transport-type-form.component';
 import {ResolveTransportTypeInfoGuard} from '../../guard/resolve-transport-type-info/resolve-transport-type-info.guard';
 import {ResolveTripInfoGuard} from '../../guard/resolve-trip-info/resolve-trip-info.guard';
+import {AdminCommonComponent} from '../administration/admin-common/admin-common.component';
 
 const childrenRoutes: Routes = [
   {path: '', component: AdminMenuComponent},
-  {
-    path: 'trips',
-    component: TripAdministrationComponent,
-    resolve: {ResolveTripInfoGuard}
-  },
-  {
-    path: 'trips/form/:mode',
-    component: TripFormComponent
-  },
-  {
-    path: 'trips/show',
-    component: TripShowComponent
-  },
-  {
-    path: 'transportTypes',
-    component: TransportTypeAdministrationComponent,
-    resolve: {ResolveTransportTypeInfoGuard}
-  },
-  {
-    path: 'transportTypes/form/:mode',
-    component: TransportTypeFormComponent
-  }
+  {path: 'manage',
+   component: AdminCommonComponent,
+   children: [
+     {
+       path: 'trips',
+       component: TripAdministrationComponent,
+       resolve: {ResolveTripInfoGuard}
+     },
+     {
+       path: 'trips/form/:mode',
+       component: TripFormComponent
+     },
+     {
+       path: 'trips/show',
+       component: TripShowComponent
+     },
+     {
+       path: 'transport_types',
+       component: TransportTypeAdministrationComponent,
+       resolve: {ResolveTransportTypeInfoGuard}
+     },
+     {
+       path: 'transport_types/form/:mode',
+       component: TransportTypeFormComponent
+     }
+   ]}
   // TODO: добавить марштуры.
 ];
 

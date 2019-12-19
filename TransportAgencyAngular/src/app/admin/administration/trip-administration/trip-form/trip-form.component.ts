@@ -114,13 +114,12 @@ export class TripFormComponent {
     this.form.get('kindTransport').setValue(this.trip.transportType.name);
 
     let date = new Date(this.trip.arrivalTime);
-
-    // Чтобы дата соответствовала формату date input.
-    let stringDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`;
-    this.form.get('arrivalDate').setValue(stringDate);
-
+    this.form.get('arrivalDate').setValue(this.getTransformDateString(date));
     date = new Date(this.trip.departureTime);
-    stringDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    this.form.get('departureDate').setValue(stringDate);
+    this.form.get('departureDate').setValue(this.getTransformDateString(date));
+  }
+
+  private getTransformDateString(oldDate: Date): string {
+    return `${oldDate.getFullYear()}-${oldDate.getMonth() + 1}-${oldDate.getDate() < 10 ? '0' + oldDate.getDate() : oldDate.getDate()}`;
   }
 }

@@ -1,27 +1,13 @@
-<div class="row mt-5">
-  <div class="col-12">
-    <div *ngIf="allTrips.length === 0" class="h2 text-center">
-      Рейсы отсутствуют
-    </div>
-    <div class="list-group">
-      <div class="list-group-item" *ngFor="let tr of allTrips">
-        Откуда: {{tr.departurePlace.name}} - Куда: {{tr.arrivalPlace.name}}
-        <div class="text-right">
-          <button type="button" class="btn-sm btn btn-primary m-1" (click)="showTrip(tr.id)">Просмотреть</button>
-          <button type="button" class="btn-sm btn btn-warning m-1" (click)="editTrip(tr.id)">Изменить</button>
-          <button type="button" class="btn-sm btn btn-danger m-1" (click)="deleteTrip(tr.id)">Удалить</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 mt-2 mb-2">
-    <div class="row justify-content-between">
-      <div class="col-6 text-left">
-        <button class="btn btn-danger" (click)="location.back()">Назад</button>
-      </div>
-      <div class="col-6 text-right">
-        <button class="btn btn-primary" [routerLink]="'form/create'">Добавить</button>
-      </div>
+<div *ngIf="allTrips.length === 0" class="h2 text-center">
+  Рейсы отсутствуют
+</div>
+<div class="list-group">
+  <div class="list-group-item" *ngFor="let tr of allTrips">
+    Откуда: {{tr.departurePlace.name}} - Куда: {{tr.arrivalPlace.name}}
+    <div class="text-right">
+      <button type="button" class="btn-sm btn btn-primary m-1" (click)="showTrip(tr.id)">Просмотреть</button>
+      <button type="button" class="btn-sm btn btn-warning m-1" (click)="editTrip(tr.id)">Изменить</button>
+      <button type="button" class="btn-sm btn btn-danger m-1" (click)="deleteTrip(tr.id)">Удалить</button>
     </div>
   </div>
 </div>

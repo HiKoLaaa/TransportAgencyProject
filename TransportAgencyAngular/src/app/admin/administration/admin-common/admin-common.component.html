@@ -1,0 +1,15 @@
+<div class="row mt-5">
+  <div class="col-12">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="col-12 mt-2 mb-2">
+    <div class="row justify-content-between">
+      <div class="col-6 text-left">
+        <button class="btn btn-danger" (click)="location.back()">Назад</button>
+      </div>
+      <div class="col-6 text-right">
+        <button class="btn btn-primary" [routerLink]="'form/create'">Добавить</button>
+      </div>
+    </div>
+  </div>
+</div>
