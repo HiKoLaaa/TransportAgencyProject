@@ -1,5 +1,5 @@
 <div class="row justify-content-center mt-5">
-  <div class="col-12 col-md-8 text-center bg-info p-2 h3 text-white">
+  <div *ngIf="trip !== undefined" class="col-12 col-md-8 text-center bg-info p-2 h3 text-white">
     <div>Место отправления: {{trip.departurePlace.name}}</div>
     <div>Место прибытия: {{trip.arrivalPlace.name}}</div>
     <div>Дата отправления: {{trip.departureTime | date: 'dd:MM:yyyy hh-mm-ss'}}</div>
