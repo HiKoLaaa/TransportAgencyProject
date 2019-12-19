@@ -12,7 +12,7 @@ export class AdminMenuComponent {
   constructor(private location: Location) {
     this.administratingEntities = [
       ['Рейсы', 'trips'],
-      ['Типы транспорта', 'transportTypes'],
+      ['Типы транспорта', 'transport_types'],
       ['Места', 'places'],
       ['Страны', 'countries'],
       ['Покупатели', 'customers']

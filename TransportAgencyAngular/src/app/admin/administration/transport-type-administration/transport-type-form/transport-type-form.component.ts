@@ -47,7 +47,7 @@ export class TransportTypeFormComponent implements OnInit {
         this.transportTypeRepository.editType(this.transportType).subscribe();
       }
 
-      this.router.navigateByUrl('admin_panel/transportTypes');
+      this.router.navigateByUrl('admin_panel/transport_types');
     }
   }
 

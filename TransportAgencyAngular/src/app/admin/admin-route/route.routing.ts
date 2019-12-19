@@ -31,12 +31,12 @@ const childrenRoutes: Routes = [
     component: TripShowComponent
   },
   {
-    path: 'transportTypes',
+    path: 'transport_types',
     component: TransportTypeAdministrationComponent,
     resolve: {ResolveTransportTypeInfoGuard}
   },
   {
-    path: 'transportTypes/form/:mode',
+    path: 'transport_types/form/:mode',
     component: TransportTypeFormComponent
   }
   // TODO: добавить марштуры.

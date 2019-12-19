@@ -28,7 +28,7 @@ export class TransportTypeAdministrationComponent implements OnInit {
   }
 
   editTransportType(id: Guid) {
-    this.router.navigateByUrl(`admin_panel/transportTypes/form/edit?transport_type_id=${id}`);
+    this.router.navigateByUrl(`admin_panel/transport_types/form/edit?transport_type_id=${id}`);
   }
 
   private getAllTypes(): void {
