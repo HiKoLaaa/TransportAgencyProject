@@ -14,8 +14,7 @@ export class AdminMenuComponent {
       ['Рейсы', 'trips'],
       ['Типы транспорта', 'transport_types'],
       ['Места', 'places'],
-      ['Страны', 'countries'],
-      ['Покупатели', 'customers']
+      ['Страны', 'countries']
     ];
   }
 }
