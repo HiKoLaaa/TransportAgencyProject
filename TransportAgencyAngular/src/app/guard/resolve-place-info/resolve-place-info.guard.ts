@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {TransportType} from '../../model/dbModel/transportType.model';
 import {PlaceRepository} from '../../model/repository/placeRepository.model';
+import {Place} from '../../model/dbModel/place.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ResolvePlaceInfoGuard implements Resolve<TransportType[]> {
+export class ResolvePlaceInfoGuard implements Resolve<Place[]> {
   constructor(private placeRepository: PlaceRepository) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-      Observable<TransportType[]> | Promise<TransportType[]> | TransportType[] {
+      Observable<Place[]> | Promise<Place[]> | Place[] {
     return this.placeRepository.getAllPlaces();
   }
 }
