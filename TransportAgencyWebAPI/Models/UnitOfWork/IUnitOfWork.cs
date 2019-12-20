@@ -10,6 +10,7 @@ namespace TransportAgencyWebAPI.Models.UnitOfWork
 		IRepositoryAsync<Place> PlaceRepository { get; }
 		IRepositoryAsync<TransportType> TransportTypeRepository { get; }
 		IFindTripWithParametersRepositoryAsync<Trip> TripRepository { get; }
+		IRepositoryAsync<Country> CountryRepository { get; }
 		Task SaveChangesAsync();
 	}
 }

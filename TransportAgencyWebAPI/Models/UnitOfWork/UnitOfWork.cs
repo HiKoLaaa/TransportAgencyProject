@@ -65,6 +65,20 @@ namespace TransportAgencyWebAPI.Models.UnitOfWork
 			}
 		}
 
+		private IRepositoryAsync<Country> _countryReposiotory;
+		public IRepositoryAsync<Country> CountryRepository
+		{
+			get
+			{
+				if (_countryReposiotory == null)
+				{
+					_countryReposiotory = new CountryRepository(_context);
+				}
+
+				return _countryReposiotory;
+			}
+		}
+
 		public UnitOfWork(TransportAgencyContext context)
 		{
 			_context = context;
