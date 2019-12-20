@@ -10,8 +10,7 @@ import {AvailableCountryValidator} from '../../../../validator/available-country
 
 @Component({
   selector: 'app-place-form',
-  templateUrl: './place-form.component.html',
-  styleUrls: ['./place-form.component.scss']
+  templateUrl: './place-form.component.html'
 })
 export class PlaceFormComponent implements OnInit {
   place: Place;

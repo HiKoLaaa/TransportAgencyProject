@@ -7,8 +7,7 @@ import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  templateUrl: './registration.component.html'
 })
 export class RegistrationComponent {
   form: RegistrationFormGroup;

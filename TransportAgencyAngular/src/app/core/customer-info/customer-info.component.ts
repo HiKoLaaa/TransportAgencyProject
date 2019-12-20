@@ -11,8 +11,7 @@ import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-customer-info',
-  templateUrl: './customer-info.component.html',
-  styleUrls: ['./customer-info.component.scss']
+  templateUrl: './customer-info.component.html'
 })
 export class CustomerInfoComponent {
   form: CustomerInfoFormGroup;

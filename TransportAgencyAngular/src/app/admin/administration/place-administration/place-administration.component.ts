@@ -6,8 +6,7 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-place-administration',
-  templateUrl: './place-administration.component.html',
-  styleUrls: ['./place-administration.component.scss']
+  templateUrl: './place-administration.component.html'
 })
 export class PlaceAdministrationComponent implements OnInit {
   allPlaces: Place[];

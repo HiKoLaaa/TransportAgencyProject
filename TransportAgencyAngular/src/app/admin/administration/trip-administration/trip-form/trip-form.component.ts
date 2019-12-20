@@ -13,8 +13,7 @@ import {AvailableTransportTypeValidator} from '../../../../validator/available-t
 
 @Component({
   selector: 'app-trip-form',
-  templateUrl: './trip-form.component.html',
-  styleUrls: ['./trip-form.component.scss']
+  templateUrl: './trip-form.component.html'
 })
 export class TripFormComponent {
   form: TripFormGroup;

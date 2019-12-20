@@ -6,8 +6,7 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-transport-type-administration',
-  templateUrl: './transport-type-administration.component.html',
-  styleUrls: ['./transport-type-administration.component.scss']
+  templateUrl: './transport-type-administration.component.html'
 })
 export class TransportTypeAdministrationComponent implements OnInit {
   allTransportTypes: TransportType[];

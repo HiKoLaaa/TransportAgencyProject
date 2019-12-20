@@ -6,8 +6,7 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-country-administration',
-  templateUrl: './country-administration.component.html',
-  styleUrls: ['./country-administration.component.scss']
+  templateUrl: './country-administration.component.html'
 })
 export class CountryAdministrationComponent implements OnInit {
   allCountries: Country[];

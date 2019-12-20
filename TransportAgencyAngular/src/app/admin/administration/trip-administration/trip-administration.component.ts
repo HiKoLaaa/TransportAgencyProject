@@ -2,13 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {TripRepository} from '../../../model/repository/tripRepository.model';
 import {Trip} from '../../../model/dbModel/trip.model';
 import {Guid} from 'guid-typescript';
-import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-trip-administration',
-  templateUrl: './trip-administration.component.html',
-  styleUrls: ['./trip-administration.component.scss']
+  templateUrl: './trip-administration.component.html'
 })
 export class TripAdministrationComponent implements OnInit {
   allTrips: Trip[];

@@ -7,8 +7,7 @@ import {TransportType} from '../../../../model/dbModel/transportType.model';
 
 @Component({
   selector: 'app-transport-type-form',
-  templateUrl: './transport-type-form.component.html',
-  styleUrls: ['./transport-type-form.component.scss']
+  templateUrl: './transport-type-form.component.html'
 })
 export class TransportTypeFormComponent implements OnInit {
   transportType: TransportType;

@@ -8,8 +8,7 @@ import {CountryRepository} from '../../../../model/repository/countryRepository.
 
 @Component({
   selector: 'app-country-form',
-  templateUrl: './country-form.component.html',
-  styleUrls: ['./country-form.component.scss']
+  templateUrl: './country-form.component.html'
 })
 export class CountryFormComponent implements OnInit {
   country: Country;

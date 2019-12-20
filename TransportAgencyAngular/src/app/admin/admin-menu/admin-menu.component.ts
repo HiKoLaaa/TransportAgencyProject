@@ -3,8 +3,7 @@ import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-admin-menu',
-  templateUrl: './admin-menu.component.html',
-  styleUrls: ['./admin-menu.component.scss']
+  templateUrl: './admin-menu.component.html'
 })
 export class AdminMenuComponent {
   administratingEntities: string[][];
