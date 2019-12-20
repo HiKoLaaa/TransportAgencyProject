@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TransportAgencyWebAPI.Helpers;
 using TransportAgencyWebAPI.Models.DbModels;
 using TransportAgencyWebAPI.Models.UnitOfWork;
 using TransportAgencyWebAPI.Models.ViewModels;
@@ -31,7 +32,7 @@ namespace TransportAgencyWebAPI.Controllers
 			await _unitOfWork.TripRepository.GetOneItemAsync(id);
 
 		[HttpPost]
-		[Authorize(Roles = "Admin")]
+		[Authorize(Roles = RoleNamesHelper.ADMIN_ROLE)]
 		public async Task PostAsync([FromBody]Trip trip)
 		{
 			await _unitOfWork.TripRepository.AddItemAsync(trip);
@@ -39,7 +40,7 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpPut]
-		[Authorize(Roles = "Admin")]
+		[Authorize(Roles = RoleNamesHelper.ADMIN_ROLE)]
 		public async Task PutAsync([FromBody]Trip trip)
 		{
 			await _unitOfWork.TripRepository.EditItemAsync(trip);
@@ -47,7 +48,7 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		[Authorize(Roles = "Admin")]
+		[Authorize(Roles = RoleNamesHelper.ADMIN_ROLEs)]
 		public async Task DeleteAsync(Guid id)
 		{
 			await _unitOfWork.TripRepository.DeleteItemAsync(id);

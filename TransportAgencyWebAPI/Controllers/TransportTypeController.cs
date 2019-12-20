@@ -25,7 +25,7 @@ namespace TransportAgencyWebAPI.Controllers
 		public async Task<TransportType> GetAsync(Guid id) => await _unitOfWork.TransportTypeRepository.GetOneItemAsync(id);
 
 		[HttpPost]
-		[Authorize(Roles = "Admin")]
+		[Authorize(Roles = RoleNamesHelper.ADMIN_ROLE)]
 		public async Task Post([FromBody]TransportType transportType)
 		{
 			await _unitOfWork.TransportTypeRepository.AddItemAsync(transportType);
@@ -33,7 +33,7 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpPut]
-		[Authorize(Roles = "Admin")]
+		[Authorize(Roles = RoleNamesHelper.ADMIN_ROLE)]
 		public async Task Put([FromBody]TransportType transportType)
 		{
 			await _unitOfWork.TransportTypeRepository.EditItemAsync(transportType);
