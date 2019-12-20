@@ -10,11 +10,11 @@ using TransportAgencyWebAPI.Models.UnitOfWork;
 namespace TransportAgencyWebAPI.Controllers
 {
 	[Route("api/[controller]")]
-	public class CountryRepository : Controller
+	public class CountryController : Controller
 	{
 		private IUnitOfWork _unitOfWork;
 
-		public CountryRepository(IUnitOfWork unitOfWork)
+		public CountryController(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}
