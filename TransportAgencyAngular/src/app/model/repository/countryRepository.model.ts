@@ -1,7 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Place} from '../dbModel/place.model';
 import {MAIN_PART_URL} from './url.model';
 import {Guid} from 'guid-typescript';
 import {Country} from '../dbModel/country.model';
@@ -14,25 +13,25 @@ export class CountryRepository {
 
   }
 
-  getAllCountries(): Observable<Place[]> {
-    return this.http.get<Place[]>(`${MAIN_PART_URL}/${API_COUNTRY}`);
+  getAllCountries(): Observable<Country[]> {
+    return this.http.get<Country[]>(`${MAIN_PART_URL}/${API_COUNTRY}`);
   }
 
-  getCountry(id: Guid): Observable<Place> {
-    return this.http.get<Place>(`${MAIN_PART_URL}/${API_COUNTRY}/${id}`);
+  getCountry(id: Guid): Observable<Country> {
+    return this.http.get<Country>(`${MAIN_PART_URL}/${API_COUNTRY}/${id}`);
   }
 
-  addCountry(place: Place): Observable<Place> {
-    place.id = Guid.create();
-    return this.http.post<Place>(`${MAIN_PART_URL}/${API_COUNTRY}`, this.prepareToSave(place));
+  addCountry(country: Country): Observable<Country> {
+    country.id = Guid.create();
+    return this.http.post<Country>(`${MAIN_PART_URL}/${API_COUNTRY}`, this.prepareToSave(country));
   }
 
-  editCountry(place: Place): Observable<Place> {
-    return this.http.put<Place>(`${MAIN_PART_URL}/${API_COUNTRY}`, this.prepareToSave(place));
+  editCountry(country: Country): Observable<Country> {
+    return this.http.put<Country>(`${MAIN_PART_URL}/${API_COUNTRY}`, this.prepareToSave(country));
   }
 
-  deleteCountry(id: Guid): Observable<Place> {
-    return this.http.delete<Place>(`${MAIN_PART_URL}/${API_COUNTRY}/${id}`);
+  deleteCountry(id: Guid): Observable<Country> {
+    return this.http.delete<Country>(`${MAIN_PART_URL}/${API_COUNTRY}/${id}`);
   }
 
   private prepareToSave(country: Country): object {
