@@ -1,0 +1,19 @@
+<div class="row mt-5">
+  <div class="col-12">
+    <div *ngIf="allCountries.length === 0" class="h2 text-center">
+      Типы транспорта отсутствуют
+    </div>
+    <div class="list-group">
+      <div class="list-group-item" *ngFor="let cntry of allCountries">
+        Наименование: {{cntry.name}}
+        <div class="text-right">
+          <button type="button" class="btn-sm btn btn-warning m-1" (click)="editCountry(cntry.id)">Изменить</button>
+          <button type="button" class="btn-sm btn btn-danger m-1" (click)="deleteCountry(cntry.id)">Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mt-2 mb-2">
+    <app-item-button></app-item-button>
+  </div>
+</div>

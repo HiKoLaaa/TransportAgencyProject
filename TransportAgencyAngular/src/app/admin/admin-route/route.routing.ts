@@ -17,6 +17,9 @@ import {ResolveTripInfoGuard} from '../../guard/resolve-trip-info/resolve-trip-i
 import {PlaceAdministrationComponent} from '../administration/place-administration/place-administration.component';
 import {ResolvePlaceInfoGuard} from '../../guard/resolve-place-info/resolve-place-info.guard';
 import {PlaceFormComponent} from '../administration/place-administration/place-form/place-form.component';
+import {CountryAdministrationComponent} from '../administration/country-administration/country-administration.component';
+import {ResolveCountryInfoGuard} from '../../guard/resolve-country-info/resolve-country-info.guard';
+import {CountryFormComponent} from '../administration/country-administration/country-form/country-form.component';
 
 const childrenRoutes: Routes = [
   {path: '', component: AdminMenuComponent},
@@ -50,8 +53,16 @@ const childrenRoutes: Routes = [
   {
     path: 'places/form/:mode',
     component: PlaceFormComponent
+  },
+  {
+    path: 'countries',
+    component: CountryAdministrationComponent,
+    resolve: {ResolveCountryInfoGuard}
+  },
+  {
+    path: 'countries/form/:mode',
+    component: CountryFormComponent
   }
-  // TODO: добавить марштуры.
 ];
 
 export const routing = RouterModule.forChild([

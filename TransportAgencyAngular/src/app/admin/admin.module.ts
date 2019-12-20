@@ -13,6 +13,8 @@ import {TransportTypeFormComponent} from './administration/transport-type-admini
 import { ItemButtonComponent } from './administration/bottom-button/item-button/item-button.component';
 import {PlaceAdministrationComponent} from './administration/place-administration/place-administration.component';
 import { PlaceFormComponent } from './administration/place-administration/place-form/place-form.component';
+import { CountryAdministrationComponent } from './administration/country-administration/country-administration.component';
+import { CountryFormComponent } from './administration/country-administration/country-form/country-form.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { PlaceFormComponent } from './administration/place-administration/place-
     AdminMainPageComponent, TripAdministrationComponent, AdminMenuComponent, TripFormComponent,
     TripShowComponent, TransportTypeAdministrationComponent, TransportTypeFormComponent, ItemButtonComponent,
     PlaceAdministrationComponent,
-    PlaceFormComponent
+    PlaceFormComponent,
+    CountryAdministrationComponent,
+    CountryFormComponent
     ],
   providers: [],
   exports: [AdminMainPageComponent]
