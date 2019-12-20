@@ -34,11 +34,10 @@ export class PlaceRepository {
 
   private prepareToSave(place: Place): object {
     const body = {
-      id: place.id,
+      id: place.id.toString(),
       name: place.name,
       country: place.country
     };
-
     return body;
   }
 }

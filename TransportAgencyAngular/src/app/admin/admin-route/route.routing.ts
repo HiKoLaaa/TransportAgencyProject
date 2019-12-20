@@ -14,6 +14,9 @@ import {
 } from '../administration/transport-type-administration/transport-type-form/transport-type-form.component';
 import {ResolveTransportTypeInfoGuard} from '../../guard/resolve-transport-type-info/resolve-transport-type-info.guard';
 import {ResolveTripInfoGuard} from '../../guard/resolve-trip-info/resolve-trip-info.guard';
+import {PlaceAdministrationComponent} from '../administration/place-administration/place-administration.component';
+import {ResolvePlaceInfoGuard} from '../../guard/resolve-place-info/resolve-place-info.guard';
+import {PlaceFormComponent} from '../administration/place-administration/place-form/place-form.component';
 
 const childrenRoutes: Routes = [
   {path: '', component: AdminMenuComponent},
@@ -38,6 +41,15 @@ const childrenRoutes: Routes = [
   {
     path: 'transport_types/form/:mode',
     component: TransportTypeFormComponent
+  },
+  {
+    path: 'places',
+    component: PlaceAdministrationComponent,
+    resolve: {ResolvePlaceInfoGuard}
+  },
+  {
+    path: 'places/form/:mode',
+    component: PlaceFormComponent
   }
   // TODO: добавить марштуры.
 ];
