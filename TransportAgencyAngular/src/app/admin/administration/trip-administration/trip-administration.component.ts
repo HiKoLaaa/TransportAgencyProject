@@ -14,7 +14,6 @@ export class TripAdministrationComponent implements OnInit {
   allTrips: Trip[];
 
   constructor(private tripRepository: TripRepository,
-              private location: Location,
               private router: Router) {
     this.allTrips = [];
   }

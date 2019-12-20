@@ -14,7 +14,6 @@ export class TransportTypeAdministrationComponent implements OnInit {
   allTransportTypes: TransportType[];
 
   constructor(private transportTypeRepository: TransportTypeRepository,
-              private location: Location,
               private router: Router) {
     this.allTransportTypes = [];
   }

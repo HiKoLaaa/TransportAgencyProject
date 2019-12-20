@@ -4,7 +4,6 @@ import {TransportTypeRepository} from '../../../../model/repository/transportTyp
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {TransportType} from '../../../../model/dbModel/transportType.model';
-import {Trip} from '../../../../model/dbModel/trip.model';
 
 @Component({
   selector: 'app-transport-type-form',
