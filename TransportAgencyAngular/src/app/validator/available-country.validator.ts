@@ -1,7 +1,7 @@
 import {AbstractControl, ValidationErrors, Validator} from '@angular/forms';
 import {Country} from '../model/dbModel/country.model';
 
-export class AvailabeCountryValidator implements Validator {
+export class AvailableCountryValidator implements Validator {
   countries: Country[];
 
   constructor(countries: Country[]) {

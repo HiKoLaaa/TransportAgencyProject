@@ -47,16 +47,15 @@ export class TripFormComponent {
     });
     placeRepository.getAllPlaces().subscribe(pl => {
       this.places = pl;
-      this.places.forEach(place => this.placesNames.push(place.name));
-      this.placesNames.sort();
+      this.initAutocompletePlacesNamesAndSort();
       const placeValidator = new AvailablePlaceValidator(this.places);
       this.form.get('departurePlace').setValidators([
-        placeValidator.validate.bind(this),
+        placeValidator.validate.bind(placeValidator),
         this.form.get('departurePlace').validator
       ]);
 
       this.form.get('arrivalPlace').setValidators([
-        placeValidator.validate.bind(this),
+        placeValidator.validate.bind(placeValidator),
         this.form.get('arrivalPlace').validator
       ]);
 
@@ -88,6 +87,11 @@ export class TripFormComponent {
 
       this.router.navigateByUrl('admin_panel/trips');
     }
+  }
+
+  private initAutocompletePlacesNamesAndSort(): void {
+    this.places.forEach(place => this.placesNames.push(place.name));
+    this.placesNames.sort();
   }
 
   private prepareTrip() {

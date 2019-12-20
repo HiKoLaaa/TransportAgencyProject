@@ -3,9 +3,13 @@ import {ModelModule} from '../model/model.module';
 import {CanActivateOnlyMainPageGuard} from './can-activate-all-but-main-page/can-activate-only-main-page-guard.service';
 import {ResolveTransportTypeInfoGuard} from './resolve-transport-type-info/resolve-transport-type-info.guard';
 import {ResolveTripInfoGuard} from './resolve-trip-info/resolve-trip-info.guard';
+import {ResolvePlaceInfoGuard} from './resolve-place-info/resolve-place-info.guard';
 
 @NgModule({
   imports: [ModelModule],
-  providers: [ResolveTripInfoGuard, CanActivateOnlyMainPageGuard, ResolveTransportTypeInfoGuard]
+  providers: [
+    ResolveTripInfoGuard, CanActivateOnlyMainPageGuard,
+    ResolveTransportTypeInfoGuard, ResolvePlaceInfoGuard
+  ]
 })
 export class GuardModule { }

@@ -5,6 +5,7 @@ import {PlaceRepository} from './repository/placeRepository.model';
 import {TripRepository} from './repository/tripRepository.model';
 import {CustomerRepository} from './repository/customerRepository';
 import {AccountRepository} from './repository/accountRepository.model';
+import {CountryRepository} from './repository/countryRepository.model';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {AccountRepository} from './repository/accountRepository.model';
     PlaceRepository,
     TripRepository,
     CustomerRepository,
-    AccountRepository
+    AccountRepository,
+    CountryRepository
   ]
 })
 export class ModelModule { }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TransportAgencyWebAPI.Helpers;
 using TransportAgencyWebAPI.Models.DbModels;
 using TransportAgencyWebAPI.Models.UnitOfWork;
 
@@ -41,12 +42,11 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		[Authorize(Roles = "Admin")]
+		[Authorize(Roles = RoleNamesHelper.ADMIN_ROLE)]
 		public async Task Delete(Guid id)
 		{
 			await _unitOfWork.TransportTypeRepository.DeleteItemAsync(id);
 			await _unitOfWork.SaveChangesAsync();
 		}
-
 	}
 }

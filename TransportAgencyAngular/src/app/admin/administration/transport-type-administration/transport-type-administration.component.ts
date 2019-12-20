@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TransportTypeRepository} from '../../../model/repository/transportTypeRepository.model';
 import {TransportType} from '../../../model/dbModel/transportType.model';
-import {Location} from '@angular/common';
 import {Guid} from 'guid-typescript';
 import {Router} from '@angular/router';
 
@@ -33,5 +32,4 @@ export class TransportTypeAdministrationComponent implements OnInit {
   private getAllTypes(): void {
     this.transportTypeRepository.getAllTypes().subscribe(tt => this.allTransportTypes = tt);
   }
-
 }

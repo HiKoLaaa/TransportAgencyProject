@@ -48,7 +48,7 @@ namespace TransportAgencyWebAPI.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		[Authorize(Roles = RoleNamesHelper.ADMIN_ROLEs)]
+		[Authorize(Roles = RoleNamesHelper.ADMIN_ROLE)]
 		public async Task DeleteAsync(Guid id)
 		{
 			await _unitOfWork.TripRepository.DeleteItemAsync(id);
