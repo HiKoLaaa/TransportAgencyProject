@@ -10,15 +10,16 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {TripShowComponent} from './administration/trip-administration/trip-show/trip-show.component';
 import {TransportTypeAdministrationComponent} from './administration/transport-type-administration/transport-type-administration.component';
 import {TransportTypeFormComponent} from './administration/transport-type-administration/transport-type-form/transport-type-form.component';
-import { ItemButtonComponent } from './administration/bottom-button/item-button/item-button.component';
+import {ItemButtonComponent} from './administration/bottom-button/item-button/item-button.component';
 import {PlaceAdministrationComponent} from './administration/place-administration/place-administration.component';
-import { PlaceFormComponent } from './administration/place-administration/place-form/place-form.component';
-import { CountryAdministrationComponent } from './administration/country-administration/country-administration.component';
-import { CountryFormComponent } from './administration/country-administration/country-form/country-form.component';
+import {PlaceFormComponent} from './administration/place-administration/place-form/place-form.component';
+import {CountryAdministrationComponent} from './administration/country-administration/country-administration.component';
+import {CountryFormComponent} from './administration/country-administration/country-form/country-form.component';
+import {CommonErrorModule} from '../error/common-error.module';
 
 
 @NgModule({
-  imports: [AutocompleteLibModule, ReactiveFormsModule, CommonModule, routing],
+  imports: [AutocompleteLibModule, ReactiveFormsModule, CommonModule, routing,  CommonErrorModule],
   declarations: [
     AdminMainPageComponent, TripAdministrationComponent, AdminMenuComponent, TripFormComponent,
     TripShowComponent, TransportTypeAdministrationComponent, TransportTypeFormComponent, ItemButtonComponent,
@@ -26,7 +27,7 @@ import { CountryFormComponent } from './administration/country-administration/co
     PlaceFormComponent,
     CountryAdministrationComponent,
     CountryFormComponent
-    ],
+  ],
   providers: [],
   exports: [AdminMainPageComponent]
 })

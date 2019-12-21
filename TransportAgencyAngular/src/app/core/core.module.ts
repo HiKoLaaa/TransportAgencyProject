@@ -14,9 +14,13 @@ import {CustomerInfoComponent} from './customer-info/customer-info.component';
 import {ThanksMessageComponent} from './thanks-message/thanks-message.component';
 import {LoginComponent} from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
+import {CommonErrorModule} from '../error/common-error.module';
 
 @NgModule({
-  imports: [BrowserModule, RouterModule, FormsModule, ReactiveFormsModule, AutocompleteLibModule, DirectiveModule],
+  imports: [
+    BrowserModule, RouterModule, FormsModule, ReactiveFormsModule,
+    AutocompleteLibModule, DirectiveModule, CommonErrorModule
+  ],
   declarations: [HeaderComponent, FooterComponent, FindTripComponent,
     TripInfoComponent, CustomerInfoComponent, ThanksMessageComponent, LoginComponent, RegistrationComponent],
   providers: [

@@ -6,15 +6,7 @@
       </div>
     </div>
     <form [formGroup]="form" (ngSubmit)="formSubmit()">
-      <div *ngIf="submitted && form.invalid" class="row">
-        <div class="col-12 text-white text-md-left text-center bg-danger p-2 error-text">
-          <ul class="list-unstyled">
-            <li *ngFor="let error of form.getFormErrors()">
-              {{error}}
-            </li>
-          </ul>
-        </div>
-      </div>
+      <app-form-error [form]="form" [submitted]="submitted"></app-form-error>
       <div class="row">
         <div class="col-12 form-group" *ngFor="let ctrl of form.AllControls">
           <label>{{ctrl.label}}</label>
