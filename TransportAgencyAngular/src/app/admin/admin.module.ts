@@ -16,6 +16,7 @@ import {PlaceFormComponent} from './administration/place-administration/place-fo
 import {CountryAdministrationComponent} from './administration/country-administration/country-administration.component';
 import {CountryFormComponent} from './administration/country-administration/country-form/country-form.component';
 import {CommonErrorModule} from '../error/common-error.module';
+import { FormButtonComponent } from './administration/bottom-button/form-button/form-button.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {CommonErrorModule} from '../error/common-error.module';
     PlaceAdministrationComponent,
     PlaceFormComponent,
     CountryAdministrationComponent,
-    CountryFormComponent
+    CountryFormComponent,
+    FormButtonComponent
   ],
   providers: [],
   exports: [AdminMainPageComponent]

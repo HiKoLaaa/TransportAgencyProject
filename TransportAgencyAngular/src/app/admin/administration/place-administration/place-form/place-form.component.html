@@ -18,15 +18,8 @@
     </form>
   </div>
   <div class="col-12 col-md-8 mb-5">
-    <div class="row justify-content-between">
-      <div class="col-6 text-left">
-        <button class="btn btn-danger" (click)="location.back()">Назад</button>
-      </div>
-      <div class="col-6 text-right">
-        <button [disabled]="submitted && form.invalid" class="btn"
-                [class.btn-primary]="mode === 'create'" [class.btn-warning]="mode === 'edit'"
-                (click)="submitForm()">{{mode === 'create' ? 'Добавить' : 'Изменить'}}</button>
-      </div>
-    </div>
+    <app-form-button [submitted]="submitted" [form]="form"
+                     [action]="submitForm.bind(this)" [mode]="mode">
+    </app-form-button>
   </div>
 </div>
