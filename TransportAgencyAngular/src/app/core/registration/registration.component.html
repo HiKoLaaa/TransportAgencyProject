@@ -20,13 +20,7 @@
           <label>{{ctrl.label}}</label>
           <input [type]="ctrl.name === 'password' || ctrl.name ==='confirmPassword' ? 'password' : 'text'"
                  class="form-control" [formControlName]="ctrl.name">
-
-          <ul class="text-danger list-unstyled font-size-70"
-              *ngIf="(submitted || ctrl.dirty) && ctrl.invalid">
-            <li *ngFor="let error of ctrl.getErrors()">
-              {{error}}
-            </li>
-          </ul>
+          <app-control-error [control]="ctrl" [submitted]="submitted"></app-control-error>
         </div>
       </div>
       <div class="row justify-content-between">

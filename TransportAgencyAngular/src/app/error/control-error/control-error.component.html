@@ -1,0 +1,6 @@
+<ul class="text-danger list-unstyled font-size-70"
+    *ngIf="(submitted || control.dirty) && control.invalid">
+  <li *ngFor="let error of control.getErrors()">
+    {{error}}
+  </li>
+</ul>

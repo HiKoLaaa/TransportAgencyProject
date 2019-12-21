@@ -6,12 +6,7 @@
         <div *ngFor="let ctrl of form.AllControls" class="col-12 form-group">
           <label class="font-size-70">{{ctrl.label}}</label>
           <input class="form-control form-control-md" [formControlName]="ctrl.name">
-          <ul class="text-danger list-unstyled font-size-70"
-              *ngIf="(submitted || ctrl.dirty) && ctrl.invalid">
-            <li *ngFor="let error of ctrl.getErrors()">
-              {{error}}
-            </li>
-          </ul>
+          <app-control-error [control]="ctrl" [submitted]="submitted"></app-control-error>
         </div>
       </div>
     </form>
