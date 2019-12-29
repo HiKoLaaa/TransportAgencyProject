@@ -71,6 +71,16 @@ namespace TransportAgencyWebAPI.Controllers
 			}
 		}
 
+		[HttpPost("change_password")]
+		public async Task<JsonResult> ChangePasswordAsync(string oldPassword, string newPassword)
+		{
+			var claimsIdentity = this.User.Identity as ClaimsIdentity;
+			var userEmail = claimsIdentity.FindFirst(ClaimTypes.Email)?.Value;
+			var user = await _userManager.FindByEmailAsync(userEmail);
+			var result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+			return result.Succeeded ? Json(Ok()) : Json(BadRequest());
+		}
+
 		private string GenerateToken(IdentityUser user)
 		{
 			var now = DateTime.UtcNow;
@@ -92,6 +102,7 @@ namespace TransportAgencyWebAPI.Controllers
 			var claims = new List<Claim>
 			{
 				new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+				new Claim(ClaimTypes.Email, user.Email),
 				new Claim(ClaimsIdentity.DefaultRoleClaimType, admin ? RoleNamesHelper.ADMIN_ROLE : RoleNamesHelper.USER_ROLE)
 			};
 
@@ -100,14 +111,6 @@ namespace TransportAgencyWebAPI.Controllers
 					ClaimsIdentity.DefaultRoleClaimType);
 
 			return claimsIdentity;
-		}
-
-
-		// TODO: сделать возможность смену пароля.
-		public async Task<bool> ChangePasswordAsync(IdentityUser user, string oldPassword, string newPassword)
-		{
-			var result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
-			return result.Succeeded;
 		}
 	}
 }

@@ -41,6 +41,23 @@ export class AuthService {
     });
   }
 
+  changePassword(oldPassword: string, newPassword: string): Observable<boolean> {
+    const paramets = new HttpParams({
+      fromObject: {
+        oldPassword,
+        newPassword
+      }
+    });
+
+    return new Observable<boolean>(x => {
+      this.http.post(`${MAIN_PART_URL}/${AUTH_URL}/change_password`, null, {params: paramets})
+        .subscribe(success => {
+          x.next(!!success);
+          x.complete();
+        });
+    });
+  }
+
   logout() {
     this.removeJwToken();
     this.removeLoginName();
