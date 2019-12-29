@@ -51,7 +51,7 @@ namespace TransportAgencyWebAPI
 			{
 				options.DefaultAuthenticateScheme = "JwtBearer";
 				options.DefaultChallengeScheme = "JwtBearer";
-				})
+			})
 				.AddJwtBearer("JwtBearer", jwtBearerOptions =>
 				{
 					jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
