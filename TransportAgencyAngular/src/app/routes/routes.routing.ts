@@ -6,6 +6,7 @@ import {ThanksMessageComponent} from '../core/thanks-message/thanks-message.comp
 import {ResolveTripInfoGuard} from '../guard/resolve-trip-info/resolve-trip-info.guard';
 import {CanActivateOnlyMainPageGuard} from '../guard/can-activate-all-but-main-page/can-activate-only-main-page-guard.service';
 import {RegistrationComponent} from '../core/registration/registration.component';
+import {ChangePasswordComponent} from '../core/change-password/change-password.component';
 
 const routes = [
   {
@@ -24,6 +25,7 @@ const routes = [
     component: RegistrationComponent,
     canActivate: [CanActivateOnlyMainPageGuard]
   },
+  {path: 'change_password', component: ChangePasswordComponent, canActivate: [CanActivateOnlyMainPageGuard]},
   {path: 'new_order', component: CustomerInfoComponent, canActivate: [CanActivateOnlyMainPageGuard]},
   {path: 'thanks', component: ThanksMessageComponent, canActivate: [CanActivateOnlyMainPageGuard]},
   {path: '', redirectTo: '/find', pathMatch: 'full'},

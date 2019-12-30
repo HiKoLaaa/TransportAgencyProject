@@ -15,6 +15,7 @@ import {ThanksMessageComponent} from './thanks-message/thanks-message.component'
 import {LoginComponent} from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import {CommonErrorModule} from '../error/common-error.module';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import {CommonErrorModule} from '../error/common-error.module';
     AutocompleteLibModule, DirectiveModule, CommonErrorModule
   ],
   declarations: [HeaderComponent, FooterComponent, FindTripComponent,
-    TripInfoComponent, CustomerInfoComponent, ThanksMessageComponent, LoginComponent, RegistrationComponent],
+    TripInfoComponent, CustomerInfoComponent, ThanksMessageComponent, LoginComponent, RegistrationComponent, ChangePasswordComponent],
   providers: [
     {
       provide: FIND_INFO, useValue: new BehaviorSubject<FindTripInfoClientViewModel>(new FindTripInfoClientViewModel())

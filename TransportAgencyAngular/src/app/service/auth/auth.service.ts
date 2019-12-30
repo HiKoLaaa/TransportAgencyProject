@@ -51,8 +51,8 @@ export class AuthService {
 
     return new Observable<boolean>(x => {
       this.http.post(`${MAIN_PART_URL}/${AUTH_URL}/change_password`, null, {params: paramets})
-        .subscribe(success => {
-          x.next(!!success);
+        .subscribe(answer => {
+          answer['statusCode'] === 200 ? x.next(true) : x.next(false);
           x.complete();
         });
     });
