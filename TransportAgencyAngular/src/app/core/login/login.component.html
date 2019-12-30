@@ -4,7 +4,7 @@
 <div *ngIf="form.invalid && submit" class="bg-white rounded text-center text-danger p-2">
   Введите логин и пароль
 </div>
-<div *ngIf="isSuccessLogIn" class="text-white">Вы успешно вошли как {{auth.loginName}}</div>
+<div *ngIf="isSuccessLogIn" class="text-white text-md-right text-center">Вы успешно вошли как {{auth.loginName}}</div>
 <form *ngIf="!isSuccessLogIn" [formGroup]="form">
   <div *ngFor="let ctrl of form.AllControls" class="text-md-left text-center">
     <label class="text-white">{{ctrl.label}}</label>
@@ -12,14 +12,18 @@
   </div>
 </form>
 <div class="row justify-contend-end">
-  <div *ngIf="!isSuccessLogIn" [routerLink]="'/registration'" class="col-6">
+  <div *ngIf="!isSuccessLogIn" [routerLink]="'/registration'" [class.col-md-6]="!isSuccessLogIn"
+       class="col-12 text-md-left text-center">
     <button class="btn btn-success m-1">Регистрация</button>
   </div>
   <div [class.col-md-6]="!isSuccessLogIn" class="col-12 text-md-right text-center">
     <button class="btn btn-success m-1" (click)="authenticate()"
             [disabled]="submit && form.invalid">{{isSuccessLogIn ? 'Выйти' : 'Войти'}}</button>
   </div>
-  <div *ngIf="admin" class="col-12 mb-2" [routerLink]="'/admin_panel'">
-    <button class="btn btn-warning">Панель администратора</button>
+  <div *ngIf="isSuccessLogIn" class="col-12 text-md-right text-center">
+    <button class="btn btn-success m-1" [routerLink]="'/change_password'">Сменить пароль</button>
+  </div>
+  <div *ngIf="admin" class="col-12 mb-2 text-md-right text-center" [routerLink]="'/admin_panel'">
+    <button class="btn btn-warning m-1">Панель администратора</button>
   </div>
 </div>
